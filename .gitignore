@@ -1,13 +1,6 @@
 # Gemini-generated file
 GEMINI.md
-
-# General Junk
-*.bak
-*.backup
-*.old
-*.tmp
-*~
-.DS_Store
+./nvim
 
 # Verilog Project Files
 *.wdb
@@ -56,62 +49,3 @@ webtalk*.xml
 *.cache/
 *.ip_user_files/
 *.srcs/
-*.sdk/
-*_funcsim.v
-*_funcsim.vhdl
-*_timing.v
-*_timing.vhdl
-
-# Intel Quartus
-db/
-incremental_db/
-*.qpf
-*.qsf
-*.qws
-*.sof
-*.pof
-*.rbf
-*.jdi
-*.sld
-c5_pin_model_dump.txt
-*.qar
-timing/
-greybox_tmp/
-*.hdb
-*.ipregen.log
-
-# ModelSim/QuestaSim
-transcript
-modelsim.ini
-work/
-*.wlf
-*.mti
-*.dat
-*.dbs
-*.psm
-*.cmp
-*.html
-*.bsf
-[_@]*
-
-# Synopsys VCS
-csrc/
-simv*
-*.daidir/
-ucli.key
-vc_hdrs.h
-verdiLog/
-novas.*
-
-# Cadence
-INCA_libs/
-*.history
-*.key
-*.log
-waves.shm/
-
-# Yosys
-yosys_script.log
-
-# Executables
-*.out

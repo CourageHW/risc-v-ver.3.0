@@ -1,0 +1,3 @@
+-v /home/yonggi/Project_verilog/risc-v-ver.3/core_pkg.sv
++incdir+/home/yonggi/Project_verilog/risc-v-ver.3/src
++incdir+/home/yonggi/Project_verilog/risc-v-ver.3/src
