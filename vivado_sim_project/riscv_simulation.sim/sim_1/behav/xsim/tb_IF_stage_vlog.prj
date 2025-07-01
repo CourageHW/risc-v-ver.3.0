@@ -1,0 +1,15 @@
+# compile verilog/system verilog design source files
+sv xil_defaultlib  \
+"../../../../../core_pkg.sv" \
+"../../../../../rtl/1.IF_Stage/IF_stage.sv" \
+"../../../../../interface/instruction_if.sv" \
+"../../../../../rtl/1.IF_Stage/instruction_memory.sv" \
+"../../../../../interface/pc_if.sv" \
+"../../../../../rtl/1.IF_Stage/program_counter.sv" \
+"../../../../../tb/1.IF_Stage/tb_IF_stage.sv" \
+
+# compile glbl module
+verilog xil_defaultlib "glbl.v"
+
+# Do not sort compile order
+nosort

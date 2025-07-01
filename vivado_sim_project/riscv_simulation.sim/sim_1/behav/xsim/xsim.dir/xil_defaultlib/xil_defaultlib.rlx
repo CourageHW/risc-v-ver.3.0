@@ -1,0 +1,12 @@
+0.7
+2020.2
+Nov  8 2024
+22:36:55
+/home/yonggi/Project_verilog/risc-v-ver.3/core_pkg.sv,1751399280,systemVerilog,/home/yonggi/Project_verilog/risc-v-ver.3/interface/instruction_if.sv;/home/yonggi/Project_verilog/risc-v-ver.3/interface/pc_if.sv;/home/yonggi/Project_verilog/risc-v-ver.3/rtl/1.IF_Stage/IF_stage.sv;/home/yonggi/Project_verilog/risc-v-ver.3/rtl/1.IF_Stage/instruction_memory.sv;/home/yonggi/Project_verilog/risc-v-ver.3/rtl/1.IF_Stage/program_counter.sv;/home/yonggi/Project_verilog/risc-v-ver.3/tb/1.IF_Stage/tb_IF_stage.sv,/home/yonggi/Project_verilog/risc-v-ver.3/rtl/1.IF_Stage/IF_stage.sv,,$unit_core_pkg_sv_2745988853;core_pkg,,uvm,,,,,,
+/home/yonggi/Project_verilog/risc-v-ver.3/interface/instruction_if.sv,1751396223,systemVerilog,,/home/yonggi/Project_verilog/risc-v-ver.3/rtl/1.IF_Stage/instruction_memory.sv,,inst_if,,uvm,,,,,,
+/home/yonggi/Project_verilog/risc-v-ver.3/interface/pc_if.sv,1751395672,systemVerilog,,/home/yonggi/Project_verilog/risc-v-ver.3/rtl/1.IF_Stage/program_counter.sv,,pc_if,,uvm,,,,,,
+/home/yonggi/Project_verilog/risc-v-ver.3/rtl/1.IF_Stage/IF_stage.sv,1751399512,systemVerilog,,/home/yonggi/Project_verilog/risc-v-ver.3/interface/instruction_if.sv,,IF_stage,,uvm,,,,,,
+/home/yonggi/Project_verilog/risc-v-ver.3/rtl/1.IF_Stage/instruction_memory.sv,1751396771,systemVerilog,,/home/yonggi/Project_verilog/risc-v-ver.3/interface/pc_if.sv,,instruction_memory,,uvm,,,,,,
+/home/yonggi/Project_verilog/risc-v-ver.3/rtl/1.IF_Stage/program_counter.sv,1751397836,systemVerilog,,/home/yonggi/Project_verilog/risc-v-ver.3/tb/1.IF_Stage/tb_IF_stage.sv,,program_counter,,uvm,,,,,,
+/home/yonggi/Project_verilog/risc-v-ver.3/tb/1.IF_Stage/tb_IF_stage.sv,1751399558,systemVerilog,,,,tb_IF_stage,,uvm,,,,,,
+/home/yonggi/Project_verilog/risc-v-ver.3/vivado_sim_project/riscv_simulation.sim/sim_1/behav/xsim/glbl.v,1724786425,verilog,,,,glbl,,uvm,,,,,,

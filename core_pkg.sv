@@ -1,20 +1,20 @@
 package core_pkg;
 
   // ================================== //
-  //          Define Parameter          //
+  //          Define localparam         //
   // ================================== //
-  parameter DATA_WIDTH          = 32;
-  parameter BYTE_WIDTH          =  8;
-  parameter INST_WIDTH          = 32;
+  localparam DATA_WIDTH          = 32;
+  localparam BYTE_WIDTH          =  8;
+  localparam INST_WIDTH          = 32;
   
-  parameter NUM_REGS            = 32;
-  parameter REG_ADDR_WIDTH      = $clog2(NUM_REGS);
+  localparam NUM_REGS            = 32;
+  localparam REG_ADDR_WIDTH      = $clog2(NUM_REGS);
 
-  parameter DATA_MEM_DEPTH      = 1024;
-  parameter DATA_MEM_ADDR_WIDTH = $clog2(DATA_MEM_DEPTH);
+  localparam DATA_MEM_DEPTH      = 1024;
+  localparam DATA_MEM_ADDR_WIDTH = $clog2(DATA_MEM_DEPTH);
 
-  parameter INST_MEM_DEPTH      = 1024;
-  parameter INST_MEM_ADDR_WIDTH = $clog2(INST_MEM_DEPTH);
+  localparam INST_MEM_DEPTH      = 1024;
+  localparam INST_MEM_ADDR_WIDTH = $clog2(INST_MEM_DEPTH);
 
   // ================================== //
   //         Define Instruction         //
@@ -32,79 +32,77 @@ package core_pkg;
     OPCODE_INVALID = 7'b1111111  // For Debuging
   } opcode_e;
   
-  typedef enum logic [2:0] {   // === FUNCT3 === //
-    // Arithmetic
-    FUNCT3_R_ADD_SUB   = 3'h0, // ADD / SUB
-    FUNCT3_I_ADDI      = 3'h0, // ADDI
+  // === FUNCT3 === //
+  // Arithmetic
+  localparam logic [2:0] FUNCT3_R_ADD_SUB   = 3'h0; // ADD / SUB
+  localparam logic [2:0] FUNCT3_I_ADDI      = 3'h0; // ADDI
 
-    // Logical
-    FUNCT3_R_XOR       = 3'h4, // xor
-    FUNCT3_I_XORI      = 3'h4, // xori
-    FUNCT3_R_OR        = 3'h6, // or
-    FUNCT3_I_ORI       = 3'h6, // ori
-    FUNCT3_R_AND       = 3'h7, // and
-    FUNCT3_I_ANDI      = 3'h7, // andi
+  // Logical
+  localparam logic [2:0] FUNCT3_R_XOR       = 3'h4; // xor
+  localparam logic [2:0] FUNCT3_I_XORI      = 3'h4; // xori
+  localparam logic [2:0] FUNCT3_R_OR        = 3'h6; // or
+  localparam logic [2:0] FUNCT3_I_ORI       = 3'h6; // ori
+  localparam logic [2:0] FUNCT3_R_AND       = 3'h7; // and
+  localparam logic [2:0] FUNCT3_I_ANDI      = 3'h7; // andi
 
-    // Shift
-    FUNCT3_R_SLL       = 3'h1, // Shift Left Logical
-    FUNCT3_I_SLLI      = 3'h1, // Shift Left Arith
-    FUNCT3_R_SHIFT_R   = 3'h5, // Shift Right Logical (srl, sra)
-    FUNCT3_I_SHIFT_R   = 3'h5, // Shift Right Arith   (srli, srai)
-    FUNCT3_R_SLT       = 3'h2, // Set Less Than
-    FUNCT3_I_SLTI      = 3'h2, // Set Less Than Imm
-    FUNCT3_R_SLTU      = 3'h3, // Set Less Than Unsinged
-    FUNCT3_I_SLTIU     = 3'h3, // Set Less Than Imm Unsinged
+  // Shift
+  localparam logic [2:0] FUNCT3_R_SLL       = 3'h1; // Shift Left Logical
+  localparam logic [2:0] FUNCT3_I_SLLI      = 3'h1; // Shift Left Arith
+  localparam logic [2:0] FUNCT3_R_SHIFT_R   = 3'h5; // Shift Right Logical (srl, sra)
+  localparam logic [2:0] FUNCT3_I_SHIFT_R   = 3'h5; // Shift Right Arith   (srli, srai)
+  localparam logic [2:0] FUNCT3_R_SLT       = 3'h2; // Set Less Than
+  localparam logic [2:0] FUNCT3_I_SLTI      = 3'h2; // Set Less Than Imm
+  localparam logic [2:0] FUNCT3_R_SLTU      = 3'h3; // Set Less Than Unsinged
+  localparam logic [2:0] FUNCT3_I_SLTIU     = 3'h3; // Set Less Than Imm Unsinged
 
-    // Load
-    FUNCT3_LOAD_BYTE   = 3'h0, // Load Byte
-    FUNCT3_LOAD_HALF   = 3'h1, // Load Half
-    FUNCT3_LOAD_WORD   = 3'h2, // Load Word
-    FUNCT3_LOAD_BYTE_U = 3'h4, // Load Byte (Unsigned)
-    FUNCT3_LOAD_HALF_U = 3'h5, // Load Half (Unsigned)
+  // Load
+  localparam logic [2:0] FUNCT3_LOAD_BYTE   = 3'h0; // Load Byte
+  localparam logic [2:0] FUNCT3_LOAD_HALF   = 3'h1; // Load Half
+  localparam logic [2:0] FUNCT3_LOAD_WORD   = 3'h2; // Load Word
+  localparam logic [2:0] FUNCT3_LOAD_BYTE_U = 3'h4; // Load Byte (Unsigned)
+  localparam logic [2:0] FUNCT3_LOAD_HALF_U = 3'h5; // Load Half (Unsigned)
 
-    // Store
-    FUNCT3_STORE_BYTE  = 3'h0, // Store Byte
-    FUNCT3_STORE_HALF  = 3'h1, // Store Half
-    FUNCT3_STORE_WORD  = 3'h2, // Store Word
+  // Store
+  localparam logic [2:0] FUNCT3_STORE_BYTE  = 3'h0; // Store Byte
+  localparam logic [2:0] FUNCT3_STORE_HALF  = 3'h1; // Store Half
+  localparam logic [2:0] FUNCT3_STORE_WORD  = 3'h2; // Store Word
 
-    // Branch
-    FUNCT3_BRANCH_EQ   = 3'h0, // Branch ==
-    FUNCT3_BRANCH_NE   = 3'h1, // Branch !=
-    FUNCT3_BRANCH_LT   = 3'h4, // Branch <
-    FUNCT3_BRANCH_GE   = 3'h5, // Branch >=
-    FUNCT3_BRANCH_LTU  = 3'h6, // Branch < (Unsigned)
-    FUNCT3_BRANCH_GEU  = 3'h7, // Branch >= (Unsigned)
+  // Branch
+  localparam logic [2:0] FUNCT3_BRANCH_EQ   = 3'h0; // Branch ==
+  localparam logic [2:0] FUNCT3_BRANCH_NE   = 3'h1; // Branch !=
+  localparam logic [2:0] FUNCT3_BRANCH_LT   = 3'h4; // Branch <
+  localparam logic [2:0] FUNCT3_BRANCH_GE   = 3'h5; // Branch >=
+  localparam logic [2:0] FUNCT3_BRANCH_LTU  = 3'h6; // Branch < (Unsigned)
+  localparam logic [2:0] FUNCT3_BRANCH_GEU  = 3'h7; // Branch >= (Unsigned)
 
-    // Jump
-    FUNCT3_JALR        = 3'h0, // Jump and Link Reg
+  // Jump
+  localparam logic [2:0] FUNCT3_JALR        = 3'h0; // Jump and Link Reg
 
-    // For Debuging
-    FUNCT3_INV         = 3'h0
-  } funct3_e;
+  // For Debuging
+  localparam logic [2:0] FUNCT3_INV         = 3'h0;
 
-  typedef enum logic [6:0] {// === FUNCT7 === //
-    // Arithmetic
-    FUNCT7_R_ADD   = 7'h00, // ADD
-    FUNCT7_R_SUB   = 7'h20, // SUB
+  // === FUNCT7 === //
+  // Arithmetic
+  localparam logic [6:0] FUNCT7_R_ADD   = 7'h00; // ADD
+  localparam logic [6:0] FUNCT7_R_SUB   = 7'h20; // SUB
 
-    // Logical
-    FUNCT7_R_XOR   = 7'h00, // XOR
-    FUNCT7_R_OR    = 7'h00, // OR
-    FUNCT7_R_AND   = 7'h00, // AND
+  // Logical
+  localparam logic [6:0] FUNCT7_R_XOR   = 7'h00; // XOR
+  localparam logic [6:0] FUNCT7_R_OR    = 7'h00; // OR
+  localparam logic [6:0] FUNCT7_R_AND   = 7'h00; // AND
 
-    // Shift
-    FUNCT7_R_SLL   = 7'h00, // SLL
-    FUNCT7_R_SRL   = 7'h00, // SRL
-    FUNCT7_R_SRA   = 7'h20, // SRA
-    FUNCT7_I_SLL   = 7'h00, // SLLI imm[5:11]
-    FUNCT7_I_SRL   = 7'h00, // SRLI imm[5:11]
-    FUNCT7_I_SRA   = 7'h20, // SRAI imm[5:11]
-    FUNCT7_R_SLT   = 7'h00, // SLT
-    FUNCT7_R_SLTU  = 7'h00, // SLTU
+  // Shift
+  localparam logic [6:0] FUNCT7_R_SLL   = 7'h00; // SLL
+  localparam logic [6:0] FUNCT7_R_SRL   = 7'h00; // SRL
+  localparam logic [6:0] FUNCT7_R_SRA   = 7'h20; // SRA
+  localparam logic [6:0] FUNCT7_I_SLL   = 7'h00; // SLLI imm[5:11]
+  localparam logic [6:0] FUNCT7_I_SRL   = 7'h00; // SRLI imm[5:11]
+  localparam logic [6:0] FUNCT7_I_SRA   = 7'h20; // SRAI imm[5:11]
+  localparam logic [6:0] FUNCT7_R_SLT   = 7'h00; // SLT
+  localparam logic [6:0] FUNCT7_R_SLTU  = 7'h00; // SLTU
 
-    // For Debuging
-    FUNCT7_INVALID = 7'h11
-  } funct7_e;
+  // For Debuging
+  localparam logic [6:0] FUNCT7_INVALID = 7'h11;
 
 
 endpackage
