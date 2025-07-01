@@ -1,0 +1,117 @@
+# Gemini-generated file
+GEMINI.md
+
+# General Junk
+*.bak
+*.backup
+*.old
+*.tmp
+*~
+.DS_Store
+
+# Verilog Project Files
+*.wdb
+*.wcfg
+*.tcl.log
+*.jou
+*.log
+*.ini
+
+# Log & Output Files
+*.log
+*.rpt
+*.out
+*.txt
+*.html
+*.xml
+*.json
+*.csv
+
+# Waveform/Dump Files
+*.vcd
+*.vpd
+*.fsdb
+*.shm
+*.trn
+*.dump
+*.wave
+*.vcd.pdf
+
+# Synthesis & Tool-specific Files
+
+# Xilinx Vivado
+.Xil/
+*.xpr
+*.xpr.jou
+*.xpr.log
+vivado*.log
+vivado*.jou
+webtalk*.html
+webtalk*.xml
+*.bit
+*.bin
+*.mcs
+*.prm
+*.runs/
+*.cache/
+*.ip_user_files/
+*.srcs/
+*.sdk/
+*_funcsim.v
+*_funcsim.vhdl
+*_timing.v
+*_timing.vhdl
+
+# Intel Quartus
+db/
+incremental_db/
+*.qpf
+*.qsf
+*.qws
+*.sof
+*.pof
+*.rbf
+*.jdi
+*.sld
+c5_pin_model_dump.txt
+*.qar
+timing/
+greybox_tmp/
+*.hdb
+*.ipregen.log
+
+# ModelSim/QuestaSim
+transcript
+modelsim.ini
+work/
+*.wlf
+*.mti
+*.dat
+*.dbs
+*.psm
+*.cmp
+*.html
+*.bsf
+[_@]*
+
+# Synopsys VCS
+csrc/
+simv*
+*.daidir/
+ucli.key
+vc_hdrs.h
+verdiLog/
+novas.*
+
+# Cadence
+INCA_libs/
+*.history
+*.key
+*.log
+waves.shm/
+
+# Yosys
+yosys_script.log
+
+# Executables
+*.out
