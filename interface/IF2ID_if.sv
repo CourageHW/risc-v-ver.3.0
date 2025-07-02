@@ -4,19 +4,19 @@ import core_pkg::*;
 
 interface IF2ID_if;
 
-  logic [DATA_WIDTH-1:0] instruction;
-  logic [DATA_WIDTH-1:0] pc;
-  logic [DATA_WIDTH-1:0] pc_plus4;
+  typedef struct packed {
+    logic [DATA_WIDTH-1:0] instruction;
+    logic [DATA_WIDTH-1:0] pc;
+    logic [DATA_WIDTH-1:0] pc_plus4;
+  } data_t;
+
+  data_t data;
 
   modport SLAVE (
-    input instruction,
-    input pc,
-    input pc_plus4
+    input data
   );
 
   modport MASTER (
-    output instruction,
-    output pc,
-    output pc_plus4
+    output data
   );
 endinterface

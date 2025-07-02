@@ -1,14 +1,14 @@
-`timescale 1ns / 1ps  
+`timescale 1ns / 1ps 
 
 import core_pkg::*;
 
-module IF_to_ID_Reg (
+module ID_to_EX_Reg (
   input logic clk,
   input logic rst_n,
   
-  IF2ID_if.SLAVE bus_in,
-  IF2ID_if.MASTER bus_out
-  );
+  ID2EX_if.SLAVE  bus_in,
+  ID2EX_if.MASTER bus_out
+);
 
   always_ff @(posedge clk) begin
     if (!rst_n) begin
