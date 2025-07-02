@@ -8,24 +8,24 @@ module IF_stage (
   input logic pc_we,
   output logic [DATA_WIDTH-1:0] inst_o
 );
-
-  inst_if inst_bus();
-  pc_if pc_bus();
+  
+  logic [INST_MEM_ADDR_WIDTH-1:0] addr_w;
 
   program_counter pc_inst (
     .clk(clk),
     .rst_n(rst_n),
-    .pc_bus(pc_bus.SLAVE)
+    .pc_we(pc_we),
+    .pc_i(pc_i),
+    .pc_o(pc_o)
   );
 
   
   instruction_memory inst_mem_inst (
-    .inst_bus(inst_bus.SLAVE)
+    .addr_i(addr_w),
+    .instruction_o(inst_o)
   );
 
-  assign pc_bus.pc_i = pc_bus.pc_o + 4; // 조건 추가 예정
-  assign pc_bus.pc_we = pc_we;
+  assign pc_i = pc_o + 4; // 조건 추가 예정
  
-  assign inst_bus.addr_i = pc_bus.pc_o[INST_MEM_ADDR_WIDTH+1:2];
-  assign inst_o = inst_bus.instruction_o;
+  assign addr_w = pc_o[INST_MEM_ADDR_WIDTH+1:2];
 endmodule

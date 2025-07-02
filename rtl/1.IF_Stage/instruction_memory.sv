@@ -3,13 +3,14 @@
 import core_pkg::*;
 
 module instruction_memory (
-  inst_if.SLAVE inst_bus
+  input logic [INST_MEM_ADDR_WIDTH] addr_i,
+  output logic [DATA_WIDTH-1:0] instruction_o
 );
 
-  logic [INST_WIDTH-1:0] instruction_memory [0:INST_MEM_DEPTH-1];
+  logic [WIDTH-1:0] instruction_memory [0:INST_MEM_DEPTH-1];
   // initial begin
   //   $readmemh("program.mem", instruction_memory);
   // end
   
-  assign inst_bus.instruction_o = instruction_memory[inst_bus.addr_i];
+  assign instruction_o = instruction_memory[addr_i];
 endmodule

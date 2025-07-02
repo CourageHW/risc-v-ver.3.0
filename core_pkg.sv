@@ -104,5 +104,30 @@ package core_pkg;
   // For Debuging
   localparam logic [6:0] FUNCT7_INVALID = 7'h11;
 
+  typedef enum logic [2:0] {
+    IMM_ITYPE, // Loads & Immediate Arithmetic
+    IMM_STYPE, // Stores
+    IMM_BTYPE, // Conditional Branch
+    IMM_UTYPE, // Upper Immediate
+    IMM_JTYPE, // Unconditional Jump
+    IMM_RTYPE  // NONE
+  } imm_sel_e;
+
+  typedef enum logic [2:0] {
+    ALUOP_ADD,
+    ALUOP_SUB,
+    ALUOP_PASS_B,
+    ALUOP_FUNCT3,
+    ALUOP_FUNCT7,
+    ALUOP_NONE
+  } alu_op_e;
+
+  typedef enum logic [1:0] {
+    WB_ALU,
+    WB_MEM,
+    WB_PC4,
+    WB_NONE
+  } wb_sel_e;
+
 
 endpackage
