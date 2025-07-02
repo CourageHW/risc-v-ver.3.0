@@ -6,13 +6,13 @@ module IF_stage (
   input logic clk,
   input logic rst_n,
   input logic pc_we,
-  input logic [REG_ADDR_WIDTH-1:0] pc_im,
+  input logic [DATA_WIDTH-1:0] pc_i,
   IF2ID_if.MASTER bus_out
 );
   
   logic [INST_MEM_ADDR_WIDTH-1:0] addr_w;
 
-  IF2ID_if.data_t if_id_data_w;
+  if_id_data_t if_id_data_w;
 
   program_counter pc_inst (
     .clk(clk),

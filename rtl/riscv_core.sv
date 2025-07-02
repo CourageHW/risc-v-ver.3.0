@@ -5,8 +5,10 @@ import core_pkg::*;
 module riscv_core (
   input logic clk,
   input logic rst_n,
-  input logic [DATA_WIDTH-1:0] pc_i,
-  IF2ID_if.MASTER bus_out
+  input WB_RegWrite_w,
+  input [REG_ADDR_WIDTH-1:0] WB_wr_addr_w,
+  input [DATA_WIDTH-1:0] WB_wr_data_w,
+  input logic [DATA_WIDTH-1:0] pc_i
 );
 
   // ===================================
@@ -18,12 +20,6 @@ module riscv_core (
   ID2EX_if ex_stage_in_bus();  // REG -> EX
 
 
-  // ===================================
-  //               Wire
-  // ===================================
-  logic WB_RegWrite_w;
-  logic [REG_ADDR_WIDTH-1:0] WB_wr_addr_w;
-  logic [DATA_WIDTH-1:0] WB_wr_data_w;
 
 
   // ===================================

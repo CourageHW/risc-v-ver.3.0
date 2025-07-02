@@ -14,30 +14,31 @@ module ID_stage (
   ID2EX_if.MASTER bus_out
 );
 
-  ID2EX_if.data_t id_ex_data_w;
+  id_ex_data_t id_ex_data_w;
 
   
   logic [6:0] opcode_w;
-
   logic [REG_ADDR_WIDTH-1:0] rs1_addr_w;
   logic [REG_ADDR_WIDTH-1:0] rs2_addr_w;
-  logic [REG_ADDR_WIDTH-1:0] rd_addr_w;
 
   imm_sel_e ImmSel_w;
+  logic ALUSrcA_w, ALUSrcB_w, Branch_w, Jump_w, MemWrite_w, MemRead_w, RegWrite_w;
+  alu_op_e ALUOp_w;
+  wb_sel_e WBSel_w;
 
 
   main_control_unit main_ctrl_inst (
     .opcode_i(opcode_w),
     .ImmSel_o(ImmSel_w),
-    .ALUSrcA_o(id_ex_data_w.ALUSrcA),
-    .ALUSrcB_o(id_ex_data_w.ALUSrcB),
-    .ALUOp_o(id_ex_data_w.ALUOp),
-    .Branch_o(id_ex_data_w.Branch),
-    .Jump_o(id_ex_data_w.Jump),
-    .MemWrite_o(id_ex_data_w.MemWrite),
-    .MemRead_o(id_ex_data_w.MemRead),
-    .RegWrite_o(id_ex_data_w.RegWrite),
-    .WBSel_o(id_ex_data_w.WBSel)
+    .ALUSrcA_o(ALUSrcA_w),
+    .ALUSrcB_o(ALUSrcB_w),
+    .ALUOp_o(ALUOp_w),
+    .Branch_o(Branch_w),
+    .Jump_o(Jump_w),
+    .MemWrite_o(MemWrite_w),
+    .MemRead_o(MemRead_w),
+    .RegWrite_o(RegWrite_w),
+    .WBSel_o(WBSel_w)
   );
 
   register_file reg_inst (
@@ -52,7 +53,7 @@ module ID_stage (
   );
 
   immediate_generator imm_gen_inst (
-    .instruction_i(bus_in.instruction),
+    .instruction_i(bus_in.data.instruction),
     .ImmSel_i(ImmSel_w),
     .immediate_o(id_ex_data_w.immediate)
   );
@@ -63,7 +64,17 @@ module ID_stage (
 
   assign id_ex_data_w.pc       = bus_in.data.pc;
   assign id_ex_data_w.pc_plus4 = bus_in.data.pc_plus4;
-  assign id_ex_data_w.rd_addr  = bus_in.data.instruction[11:7];
+  assign id_ex_data_w.rd_addr  = RegWrite_w ? bus_in.data.instruction[11:7] : 5'b0;
 
+  assign id_ex_data_w.ALUSrcA  = ALUSrcA_w;
+  assign id_ex_data_w.ALUSrcB  = ALUSrcB_w;
+  assign id_ex_data_w.ALUOp    = ALUOp_w;
+  assign id_ex_data_w.Branch   = Branch_w;
+  assign id_ex_data_w.Jump     = Jump_w;
+  assign id_ex_data_w.MemWrite = MemWrite_w;
+  assign id_ex_data_w.MemRead  = MemRead_w;
+  assign id_ex_data_w.RegWrite = RegWrite_w;
+  assign id_ex_data_w.WBSel    = WBSel_w;
+  
   assign bus_out.data          = id_ex_data_w;
 endmodule

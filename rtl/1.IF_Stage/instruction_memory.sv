@@ -3,7 +3,7 @@
 import core_pkg::*;
 
 module instruction_memory (
-  input logic [INST_MEM_ADDR_WIDTH] addr_i,
+  input logic [INST_MEM_ADDR_WIDTH-1:0] addr_i,
   output logic [DATA_WIDTH-1:0] instruction_o
 );
 

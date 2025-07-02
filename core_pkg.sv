@@ -131,4 +131,28 @@ package core_pkg;
   } wb_sel_e;
 
 
+  typedef struct packed {
+    logic [DATA_WIDTH-1:0] instruction;
+    logic [DATA_WIDTH-1:0] pc;
+    logic [DATA_WIDTH-1:0] pc_plus4;
+  } if_id_data_t;
+  
+  typedef struct packed {
+    logic [DATA_WIDTH-1:0] immediate;
+    logic [DATA_WIDTH-1:0] rd_data1;
+    logic [DATA_WIDTH-1:0] rd_data2;
+    logic [REG_ADDR_WIDTH-1:0] rd_addr;
+    logic [DATA_WIDTH-1:0] pc;
+    logic [DATA_WIDTH-1:0] pc_plus4;
+
+    logic ALUSrcA;
+    logic ALUSrcB;
+    alu_op_e ALUOp;
+    logic Branch;
+    logic Jump;
+    logic MemWrite;
+    logic MemRead;
+    logic RegWrite;
+    wb_sel_e WBSel;
+  } id_ex_data_t;
 endpackage
