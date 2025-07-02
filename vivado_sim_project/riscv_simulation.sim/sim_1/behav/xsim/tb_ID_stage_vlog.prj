@@ -1,0 +1,14 @@
+# compile verilog/system verilog design source files
+sv xil_defaultlib  \
+"../../../../../core_pkg.sv" \
+"../../../../../rtl/2.ID_Stage/ID_stage.sv" \
+"../../../../../rtl/2.ID_Stage/immediate_generator.sv" \
+"../../../../../rtl/6.Control_Unit/main_control_unit.sv" \
+"../../../../../rtl/2.ID_Stage/register_file.sv" \
+"../../../../../tb/2.ID_Stage/tb_ID_stage.sv" \
+
+# compile glbl module
+verilog xil_defaultlib "glbl.v"
+
+# Do not sort compile order
+nosort

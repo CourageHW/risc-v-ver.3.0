@@ -4,7 +4,7 @@ import core_pkg::*;
 
 module ID_stage (
   input  logic clk,
-  input  logic [DATA_WIDTH-1:0] instruction_i,
+  IF2ID_if.SLAVE bus_in,
 
   // from Write back
   input  logic WB_RegWrite_i,
@@ -61,12 +61,12 @@ module ID_stage (
   );
 
   immediate_generator imm_gen_inst (
-    .instruction_i(instruction_i),
+    .instruction_i(bus_in.instruction),
     .ImmSel_i(ImmSel_w),
     .immediate_o(immediate_o)
   );
 
-  assign opcode_w   = instruction_i[6:0];
-  assign rs1_addr_w = instruction_i[19:15];
-  assign rs2_addr_w = instruction_i[24:20];
+  assign opcode_w   = bus_in.instruction[6:0];
+  assign rs1_addr_w = bus_in.instruction[19:15];
+  assign rs2_addr_w = bus_in.instruction[24:20];
 endmodule

@@ -1,3 +1,4 @@
+`timescale 1ns / 1ps
 package core_pkg;
 
   // ================================== //

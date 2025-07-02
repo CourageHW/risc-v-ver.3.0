@@ -15,22 +15,22 @@ module main_control_unit (
   // ALU Control Unit
   output alu_op_e ALUOp_o,
 
-  output Branch_o,
-  output Jump_o,
+  output logic Branch_o,
+  output logic Jump_o,
 
   // Data Memory
-  output MemWrite_o,
-  output MemRead_o,
+  output logic MemWrite_o,
+  output logic MemRead_o,
 
   // Writeback
-  output RegWrite_o,
+  output logic RegWrite_o,
   output wb_sel_e WBSel_o
 );
 
 
   always_comb begin
     ImmSel_o   = IMM_RTYPE; // NONE
-    ALUOP_o    = ALUOP_NONE;
+    ALUOp_o    = ALUOP_NONE;
     WBSel_o    = WB_NONE;
     ALUSrcA_o  = 1'b0;
     ALUSrcB_o  = 1'b0;
@@ -57,7 +57,7 @@ module main_control_unit (
 
       OPCODE_LOAD: begin
         ImmSel_o   = IMM_ITYPE;
-        ALUOp_o    = ALU_ADD;
+        ALUOp_o    = ALUOP_ADD;
         WBSel_o    = WB_MEM;
         ALUSrcB_o  = 1'b1;
         MemRead_o  = 1'b1;
@@ -66,20 +66,20 @@ module main_control_unit (
 
       OPCODE_STORE: begin
         ImmSel_o   = IMM_STYPE;
-        ALUOp_o    = ALU_ADD;
+        ALUOp_o    = ALUOP_ADD;
         ALUSrcB_o  = 1'b1;
         MemWrite_o = 1'b1;
       end
 
       OPCODE_BRANCH: begin
         ImmSel_o   = IMM_BTYPE;
-        ALUOp_o    = ALU_SUB;
+        ALUOp_o    = ALUOP_SUB;
         Branch_o   = 1'b1;
       end
 
       OPCODE_JAL: begin
         ImmSel_o   = IMM_JTYPE;
-        ALUOp_o    = ALU_ADD;
+        ALUOp_o    = ALUOP_ADD;
         WBSel_o    = WB_PC4;
         Jump_o     = 1'b1;
         RegWrite_o = 1'b1;
@@ -87,7 +87,7 @@ module main_control_unit (
 
       OPCODE_JALR: begin
         ImmSel_o   = IMM_ITYPE;
-        ALUOp_o    = ALU_ADD;
+        ALUOp_o    = ALUOP_ADD;
         WBSel_o    = WB_PC4;
         ALUSrcB_o  = 1'b1;
         Jump_o     = 1'b1;
@@ -96,7 +96,7 @@ module main_control_unit (
 
       OPCODE_LUI: begin
         ImmSel_o   = IMM_UTYPE;
-        ALUOp_o    = ALU_PASS_B;
+        ALUOp_o    = ALUOP_PASS_B;
         WBSel_o    = WB_ALU;
         ALUSrcA_o  = 1'b1;
         ALUSrcB_o  = 1'b1;
@@ -105,7 +105,7 @@ module main_control_unit (
 
       OPCODE_AUIPC: begin
         ImmSel_o   = IMM_UTYPE;
-        ALUOp_o    = ALU_ADD;
+        ALUOp_o    = ALUOP_ADD;
         WBSel_o    = WB_ALU;
         ALUSrcA_o  = 1'b1;
         ALUSrcB_o  = 1'b1;
