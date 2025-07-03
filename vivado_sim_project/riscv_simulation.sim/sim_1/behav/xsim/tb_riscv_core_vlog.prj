@@ -10,8 +10,12 @@ sv xil_defaultlib  \
 "../../../../../interface/IF2ID_if.sv" \
 "../../../../../rtl/1.IF_Stage/IF_stage.sv" \
 "../../../../../rtl/0.Pipeline/IF_to_ID_Reg.sv" \
+"../../../../../interface/MEM2WB_if.sv" \
+"../../../../../rtl/4.MEM_Stage/MEM_stage.sv" \
+"../../../../../rtl/0.Pipeline/MEM_to_WB_Reg.sv" \
 "../../../../../rtl/3.EX_Stage/alu.sv" \
 "../../../../../rtl/6.Control_Unit/alu_control_unit.sv" \
+"../../../../../rtl/4.MEM_Stage/data_memory.sv" \
 "../../../../../rtl/2.ID_Stage/immediate_generator.sv" \
 "../../../../../rtl/1.IF_Stage/instruction_memory.sv" \
 "../../../../../rtl/6.Control_Unit/main_control_unit.sv" \

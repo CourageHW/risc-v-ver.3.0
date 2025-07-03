@@ -14,14 +14,21 @@ create_project ${PROJ_NAME} ${PROJ_DIR} -part xc7z020clg400-1 -force
 
 # --- 2. Add Source Files ---
 # Add all necessary source files using relative paths from the project root.
+# First, add package and interface files to ensure they are compiled first.
 add_files -fileset sim_1 [list \
   ./core_pkg.sv \
   ./interface/IF2ID_if.sv \
   ./interface/ID2EX_if.sv \
   ./interface/EX2MEM_if.sv \
+  ./interface/MEM2WB_if.sv \
+]
+
+# Then, add the remaining RTL and testbench files.
+add_files -fileset sim_1 [list \
   ./rtl/0.Pipeline/IF_to_ID_Reg.sv \
   ./rtl/0.Pipeline/ID_to_EX_Reg.sv \
   ./rtl/0.Pipeline/EX_to_MEM_Reg.sv \
+  ./rtl/0.Pipeline/MEM_to_WB_Reg.sv \
   ./rtl/1.IF_Stage/program_counter.sv \
   ./rtl/1.IF_Stage/instruction_memory.sv \
   ./rtl/1.IF_Stage/IF_stage.sv \
@@ -30,12 +37,15 @@ add_files -fileset sim_1 [list \
   ./rtl/2.ID_Stage/ID_stage.sv \
   ./rtl/3.EX_Stage/alu.sv \
   ./rtl/3.EX_Stage/EX_stage.sv \
+  ./rtl/4.MEM_Stage/data_memory.sv \
+  ./rtl/4.MEM_Stage/MEM_stage.sv \
   ./rtl/6.Control_Unit/main_control_unit.sv \
   ./rtl/6.Control_Unit/alu_control_unit.sv \
   ./rtl/riscv_core.sv \
   ./tb/1.IF_Stage/tb_IF_stage.sv \
   ./tb/2.ID_Stage/tb_ID_stage.sv \
   ./tb/3.EX_stage/tb_EX_stage.sv \
+  ./tb/4.MEM_stage/tb_MEM_stage.sv \
   ./tb/tb_riscv_core.sv \
 ]
 

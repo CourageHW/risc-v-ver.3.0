@@ -21,6 +21,8 @@ module riscv_core (
   ID2EX_if  ex_stage_in_bus();   // REG -> EX
   EX2MEM_if ex_stage_out_bus(); // EX -> REG
   EX2MEM_if mem_stage_in_bus(); // REG -> MEM
+  MEM2WB_if mem_stage_out_bus(); // MEM -> REG
+  MEM2WB_if wb_stage_in_bus();   // REG -> WB
 
 
 
@@ -69,6 +71,19 @@ module riscv_core (
     .rst_n(rst_n),
     .bus_in(ex_stage_out_bus.SLAVE),
     .bus_out(mem_stage_in_bus.MASTER)
+  );
+
+  MEM_stage MEM_inst (
+    .clk(clk),
+    .bus_in(mem_stage_in_bus.SLAVE),
+    .bus_out(mem_stage_out_bus.MASTER)
+  );
+
+  MEM_to_WB_Reg MEM2WB_inst (
+    .clk(clk),
+    .rst_n(rst_n),
+    .bus_in(mem_stage_out_bus.SLAVE),
+    .bus_out(wb_stage_in_bus.MASTER)
   );
 
 endmodule

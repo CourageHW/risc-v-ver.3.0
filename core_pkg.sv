@@ -184,4 +184,16 @@ package core_pkg;
     logic RegWrite;
     wb_sel_e WBSel;
   } ex_mem_data_t;
+
+  typedef struct packed {
+    logic [DATA_WIDTH-1:0] instruction;
+    logic [DATA_WIDTH-1:0] alu_result;
+    logic [DATA_WIDTH-1:0] pc_plus4;
+    logic [DATA_WIDTH-1:0] rd_data;
+    logic [REG_ADDR_WIDTH-1:0] rd_addr;
+
+    logic RegWrite;
+    wb_sel_e WBSel;
+  } mem_wb_data_t;
+
 endpackage

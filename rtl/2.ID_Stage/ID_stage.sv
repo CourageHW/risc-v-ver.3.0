@@ -16,11 +16,6 @@ module ID_stage (
 
   id_ex_data_t id_ex_data_w;
 
-  
-  logic [6:0] opcode_w;
-  logic [REG_ADDR_WIDTH-1:0] rs1_addr_w;
-  logic [REG_ADDR_WIDTH-1:0] rs2_addr_w;
-
   imm_sel_e ImmSel_w;
   logic ALUSrcA_w, ALUSrcB_w, Branch_w, Jump_w, MemWrite_w, MemRead_w, RegWrite_w;
   alu_op_e ALUOp_w;
@@ -28,7 +23,7 @@ module ID_stage (
 
 
   main_control_unit main_ctrl_inst (
-    .opcode_i(opcode_w),
+    .opcode_i(bus_in.data.instruction[6:0]),
     .ImmSel_o(ImmSel_w),
     .ALUSrcA_o(ALUSrcA_w),
     .ALUSrcB_o(ALUSrcB_w),
@@ -44,8 +39,8 @@ module ID_stage (
   register_file reg_inst (
     .clk(clk),
     .WB_RegWrite_i(WB_RegWrite_i),
-    .rs1_addr_i(rs1_addr_w),
-    .rs2_addr_i(rs2_addr_w),
+    .rs1_addr_i(bus_in.data.instruction[19:15]),
+    .rs2_addr_i(bus_in.data.instruction[24:20]),
     .wr_addr_i(wr_addr_i),
     .wr_data_i(wr_data_i),
     .rd_data1_o(id_ex_data_w.rd_data1),
@@ -58,9 +53,6 @@ module ID_stage (
     .immediate_o(id_ex_data_w.immediate)
   );
 
-  assign opcode_w              = bus_in.data.instruction[6:0];
-  assign rs1_addr_w            = bus_in.data.instruction[19:15];
-  assign rs2_addr_w            = bus_in.data.instruction[24:20];
 
   assign id_ex_data_w.instruction = bus_in.data.instruction;
   assign id_ex_data_w.pc       = bus_in.data.pc;

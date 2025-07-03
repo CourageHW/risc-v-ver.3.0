@@ -10,9 +10,6 @@ module EX_stage (
 ex_mem_data_t ex_mem_data_w;
 
 alu_sel_e ALUSel_w;
-alu_op_e ALUOp_w;
-logic [2:0] funct3_w;
-logic       funct7_w;
 
 logic [DATA_WIDTH-1:0] rd_data1_w;
 logic [DATA_WIDTH-1:0] rd_data2_w;
@@ -22,9 +19,9 @@ logic [DATA_WIDTH-1:0] operand2_w;
 
 
 alu_control_unit alu_ctrl_inst (
-  .ALUOp_i(ALUOp_w),
-  .funct3_i(funct3_w),
-  .funct7_i(funct7_w),
+  .ALUOp_i(bus_in.data.ALUOp),
+  .funct3_i(bus_in.data.instruction[14:12]),
+  .funct7_i(bus_in.data.instruction[30]),
   .ALUSel_o(ALUSel_w)
 );
 
@@ -37,10 +34,6 @@ alu alu_inst (
 
 
 // Branch, Jump, Forwarding 기능은 추후 추가 예정
-assign ALUOp_w  = bus_in.data.ALUOp;
-assign funct3_w = bus_in.data.instruction[14:12];
-assign funct7_w = bus_in.data.instruction[30];
-
 assign rd_data1_w = bus_in.data.rd_data1;
 assign rd_data2_w = bus_in.data.rd_data2;
 
