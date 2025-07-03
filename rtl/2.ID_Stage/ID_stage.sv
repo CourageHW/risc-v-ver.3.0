@@ -62,6 +62,7 @@ module ID_stage (
   assign rs1_addr_w            = bus_in.data.instruction[19:15];
   assign rs2_addr_w            = bus_in.data.instruction[24:20];
 
+  assign id_ex_data_w.instruction = bus_in.data.instruction;
   assign id_ex_data_w.pc       = bus_in.data.pc;
   assign id_ex_data_w.pc_plus4 = bus_in.data.pc_plus4;
   assign id_ex_data_w.rd_addr  = RegWrite_w ? bus_in.data.instruction[11:7] : 5'b0;

@@ -123,6 +123,21 @@ package core_pkg;
     ALUOP_NONE
   } alu_op_e;
 
+  typedef enum logic [3:0] {
+    ALU_ADD,    // add, addi, lw, sw, jal, jalr
+    ALU_SUB,    // sub, beq, bne, blt, bge, bltu, bgeu
+    ALU_AND,    // and, andi
+    ALU_XOR,    // xor, xori
+    ALU_OR,     // or, ori
+    ALU_SLL,    // sll, slli
+    ALU_SRL,    // srl, srli
+    ALU_SRA,    // sra, srai
+    ALU_SLT,    // slt, slti
+    ALU_SLTU,   // sltu, sltiu
+    ALU_PASS_B, // lut
+    ALU_X       // default
+  } alu_sel_e;
+
   typedef enum logic [1:0] {
     WB_ALU,
     WB_MEM,
@@ -138,6 +153,7 @@ package core_pkg;
   } if_id_data_t;
   
   typedef struct packed {
+    logic [DATA_WIDTH-1:0] instruction;
     logic [DATA_WIDTH-1:0] immediate;
     logic [DATA_WIDTH-1:0] rd_data1;
     logic [DATA_WIDTH-1:0] rd_data2;
@@ -155,4 +171,17 @@ package core_pkg;
     logic RegWrite;
     wb_sel_e WBSel;
   } id_ex_data_t;
+
+  typedef struct packed {
+    logic [DATA_WIDTH-1:0] instruction;
+    logic [DATA_WIDTH-1:0] alu_result;
+    logic [DATA_WIDTH-1:0] pc_plus4;
+    logic [DATA_WIDTH-1:0] rd_data2;
+    logic [REG_ADDR_WIDTH-1:0] rd_addr;
+
+    logic MemWrite;
+    logic MemRead;
+    logic RegWrite;
+    wb_sel_e WBSel;
+  } ex_mem_data_t;
 endpackage

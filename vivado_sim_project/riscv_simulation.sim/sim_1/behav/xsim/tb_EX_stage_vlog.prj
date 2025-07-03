@@ -1,0 +1,15 @@
+# compile verilog/system verilog design source files
+sv xil_defaultlib  \
+"../../../../../core_pkg.sv" \
+"../../../../../interface/EX2MEM_if.sv" \
+"../../../../../rtl/3.EX_Stage/EX_stage.sv" \
+"../../../../../interface/ID2EX_if.sv" \
+"../../../../../rtl/3.EX_Stage/alu.sv" \
+"../../../../../rtl/6.Control_Unit/alu_control_unit.sv" \
+"../../../../../tb/3.EX_stage/tb_EX_stage.sv" \
+
+# compile glbl module
+verilog xil_defaultlib "glbl.v"
+
+# Do not sort compile order
+nosort
