@@ -1,0 +1,27 @@
+# compile verilog/system verilog design source files
+sv xil_defaultlib  \
+"../../../../../core_pkg.sv" \
+"../../../../../interface/EX2MEM_if.sv" \
+"../../../../../rtl/3.EX_Stage/EX_stage.sv" \
+"../../../../../rtl/0.Pipeline/EX_to_MEM_Reg.sv" \
+"../../../../../interface/ID2EX_if.sv" \
+"../../../../../rtl/2.ID_Stage/ID_stage.sv" \
+"../../../../../rtl/0.Pipeline/ID_to_EX_Reg.sv" \
+"../../../../../interface/IF2ID_if.sv" \
+"../../../../../rtl/1.IF_Stage/IF_stage.sv" \
+"../../../../../rtl/0.Pipeline/IF_to_ID_Reg.sv" \
+"../../../../../rtl/3.EX_Stage/alu.sv" \
+"../../../../../rtl/6.Control_Unit/alu_control_unit.sv" \
+"../../../../../rtl/2.ID_Stage/immediate_generator.sv" \
+"../../../../../rtl/1.IF_Stage/instruction_memory.sv" \
+"../../../../../rtl/6.Control_Unit/main_control_unit.sv" \
+"../../../../../rtl/1.IF_Stage/program_counter.sv" \
+"../../../../../rtl/2.ID_Stage/register_file.sv" \
+"../../../../../rtl/riscv_core.sv" \
+"../../../../../tb/tb_riscv_core.sv" \
+
+# compile glbl module
+verilog xil_defaultlib "glbl.v"
+
+# Do not sort compile order
+nosort

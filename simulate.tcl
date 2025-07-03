@@ -36,7 +36,7 @@ add_files -fileset sim_1 [list \
   ./tb/1.IF_Stage/tb_IF_stage.sv \
   ./tb/2.ID_Stage/tb_ID_stage.sv \
   ./tb/3.EX_stage/tb_EX_stage.sv \
-  ./tb/tb_riscv_core_if_id.sv \
+  ./tb/tb_riscv_core.sv \
 ]
 
 #add_files -fileset sim_1 -norecurse [list \
@@ -44,7 +44,7 @@ add_files -fileset sim_1 [list \
 
 # --- 3. Set Compile Order ---
 # Explicitly set the defines package to be compiled first.
-set_property top tb_EX_stage [get_filesets sim_1]
+set_property top tb_riscv_core [get_filesets sim_1]
 update_compile_order -fileset sim_1
 
 
