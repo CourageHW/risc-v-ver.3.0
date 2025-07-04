@@ -145,6 +145,12 @@ package core_pkg;
     WB_NONE
   } wb_sel_e;
 
+  typedef enum logic [1:0] {
+    FW_NONE,
+    FW_MEM_ALU,
+    FW_WB_DATA
+  } fw_sel_e;
+
 
   typedef struct packed {
     logic [DATA_WIDTH-1:0] instruction;

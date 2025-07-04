@@ -42,6 +42,7 @@ add_files -fileset sim_1 [list \
   ./rtl/5.WB_Stage/WB_stage.sv \
   ./rtl/6.Control_Unit/main_control_unit.sv \
   ./rtl/6.Control_Unit/alu_control_unit.sv \
+  ./rtl/7.Hazard_Unit/forwarding_unit.sv \
   ./rtl/riscv_core.sv \
   ./tb/1.IF_Stage/tb_IF_stage.sv \
   ./tb/2.ID_Stage/tb_ID_stage.sv \

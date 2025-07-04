@@ -19,10 +19,18 @@ module register_file (
 
   logic [DATA_WIDTH-1:0] registers [0:NUM_REGS-1];
 
-  // Read
   always_comb begin
-    rd_data1_o = (rs1_addr_i == '0) ? '0 : registers[rs1_addr_i];
-    rd_data2_o = (rs2_addr_i == '0) ? '0 : registers[rs2_addr_i];
+    if (WB_RegWrite_i && wr_addr_i != '0 && wr_addr_i == rs1_addr_i) begin
+      rd_data1_o = wr_data_i;
+    end else begin
+      rd_data1_o = (rs1_addr_i == '0) ? '0 : registers[rs1_addr_i];
+    end
+
+    if (WB_RegWrite_i && wr_addr_i != '0 && wr_addr_i == rs2_addr_i) begin
+      rd_data2_o = wr_data_i;
+    end else begin
+      rd_data2_o = (rs2_addr_i == '0) ? '0 : registers[rs2_addr_i];
+    end
   end
 
   // Write

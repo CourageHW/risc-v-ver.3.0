@@ -3,6 +3,10 @@
 import core_pkg::*;
 
 module EX_stage (
+  input fw_sel_e forwardA,
+  input fw_sel_e forwardB,
+  input logic [DATA_WIDTH-1:0] alu_result_MEM_i,
+  input logic [DATA_WIDTH-1:0] wb_data_WB_i,
   ID2EX_if.SLAVE bus_in,
   EX2MEM_if.MASTER bus_out
 );
@@ -33,9 +37,24 @@ alu alu_inst (
 );
 
 
-// Branch, Jump, Forwarding 기능은 추후 추가 예정
-assign rd_data1_w = bus_in.data.rd_data1;
-assign rd_data2_w = bus_in.data.rd_data2;
+
+always_comb begin
+  unique case (forwardA)
+    FW_NONE    : rd_data1_w = bus_in.data.rd_data1;
+    FW_MEM_ALU : rd_data1_w = alu_result_MEM_i;
+    FW_WB_DATA : rd_data1_w = wb_data_WB_i;
+    default    : rd_data1_w = bus_in.data.rd_data1;
+  endcase
+end
+
+always_comb begin
+  unique case (forwardB)
+    FW_NONE    : rd_data2_w = bus_in.data.rd_data2;
+    FW_MEM_ALU : rd_data2_w = alu_result_MEM_i;
+    FW_WB_DATA : rd_data2_w = wb_data_WB_i;
+    default    : rd_data2_w = bus_in.data.rd_data2;
+  endcase
+end
 
 assign operand1_w = (bus_in.data.ALUSrcA) ? bus_in.data.pc : rd_data1_w;
 assign operand2_w = (bus_in.data.ALUSrcB) ? bus_in.data.immediate : rd_data2_w;

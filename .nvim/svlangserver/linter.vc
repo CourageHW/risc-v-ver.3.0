@@ -8,6 +8,7 @@
 +incdir+/home/yonggi/Project_verilog/risc-v-ver.3/rtl/4.MEM_Stage
 +incdir+/home/yonggi/Project_verilog/risc-v-ver.3/rtl/5.WB_Stage
 +incdir+/home/yonggi/Project_verilog/risc-v-ver.3/rtl/6.Control_Unit
++incdir+/home/yonggi/Project_verilog/risc-v-ver.3/rtl/7.Hazard_Unit
 +incdir+/home/yonggi/Project_verilog/risc-v-ver.3/rtl
 +incdir+/home/yonggi/Project_verilog/risc-v-ver.3/tb/1.IF_Stage
 +incdir+/home/yonggi/Project_verilog/risc-v-ver.3/tb/2.ID_Stage
@@ -24,6 +25,7 @@
 +incdir+/home/yonggi/Project_verilog/risc-v-ver.3/rtl/4.MEM_Stage
 +incdir+/home/yonggi/Project_verilog/risc-v-ver.3/rtl/5.WB_Stage
 +incdir+/home/yonggi/Project_verilog/risc-v-ver.3/rtl/6.Control_Unit
++incdir+/home/yonggi/Project_verilog/risc-v-ver.3/rtl/7.Hazard_Unit
 +incdir+/home/yonggi/Project_verilog/risc-v-ver.3/rtl
 +incdir+/home/yonggi/Project_verilog/risc-v-ver.3/tb/1.IF_Stage
 +incdir+/home/yonggi/Project_verilog/risc-v-ver.3/tb/2.ID_Stage

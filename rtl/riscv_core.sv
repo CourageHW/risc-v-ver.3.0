@@ -4,8 +4,7 @@ import core_pkg::*;
 
 module riscv_core (
   input logic clk,
-  input logic rst_n,
-  input logic pc_we
+  input logic rst_n
 );
 
   // ===================================
@@ -29,16 +28,28 @@ module riscv_core (
   logic [REG_ADDR_WIDTH-1:0] WB_wr_addr_w;
   logic WB_RegWrite_w;
   
-
+  fw_sel_e forwardA, forwardB;
 
 
   // ===================================
   //              Module
   // ===================================
+  
+  forwarding_unit fw_unit_inst (
+    .RegWrite_MEM_i(mem_stage_in_bus.data.RegWrite),
+    .RegWrite_WB_i(wb_stage_in_bus.data.RegWrite),
+    .rd_addr_MEM_i(mem_stage_in_bus.data.rd_addr),
+    .rd_addr_WB_i(wb_stage_in_bus.data.rd_addr),
+    .rs1_addr_EX_i(ex_stage_in_bus.data.instruction[19:15]),
+    .rs2_addr_EX_i(ex_stage_in_bus.data.instruction[24:20]),
+    .forwardA(forwardA),
+    .forwardB(forwardB)
+  );
+
   IF_stage IF_inst (
     .clk(clk),
     .rst_n(rst_n),
-    .pc_we(pc_we), // 임시
+    .pc_we(1'b1), // 임시
     .bus_out(if_stage_out_bus.MASTER)
   );
 
@@ -66,6 +77,10 @@ module riscv_core (
   );
 
   EX_stage EX_inst (
+    .forwardA(forwardA),
+    .forwardB(forwardB),
+    .alu_result_MEM_i(mem_stage_in_bus.data.alu_result),
+    .wb_data_WB_i(WB_wr_data_w),
     .bus_in(ex_stage_in_bus.SLAVE),
     .bus_out(ex_stage_out_bus.MASTER)
   );
