@@ -40,7 +40,7 @@ module tb_riscv_core;
   initial begin
     error_count = 0;
     $display("=====================================================");
-    $display("RISC-V Core Testbench (Forwarding Unit) Starting...");
+    $display("RISC-V Core Improved Testbench (Flush Verification) Starting...");
     $display("=====================================================");
 
     // 1. Reset sequence
@@ -49,42 +49,32 @@ module tb_riscv_core;
     rst_n = 1;
     $display("Reset released.");
 
-    // Initialize all registers to 0
-    foreach (dut.ID_inst.reg_inst.registers[i]) begin
-      dut.ID_inst.reg_inst.registers[i] = 32'h0;
-    end
-    $display("[SETUP] All registers initialized to 0.");
-
-    // Run enough cycles for all instructions in program.mem to complete
-    // There are 4 instructions, each taking 5 cycles to write back in a 5-stage pipeline.
-    // Plus some extra cycles for safety and initial fetch.
+    // Run enough cycles for all instructions to execute and write back
+    // The program itself now initializes the registers.
     $display("[RUN] Executing instructions from program.mem...");
-    repeat (20) @(posedge clk); // 4 instructions * 5 cycles/instruction = 20 cycles
+    repeat (30) @(posedge clk); // Give enough cycles to reach the infinite loop
 
     // Check final register values
     $display("\n=====================================================");
     $display("Verifying Register File...");
     $display("=====================================================");
 
-    // Expected values based on program.mem:
-    // 00A00093 // addi x1, x0, 10  (x1 = 10)
-    // 00508113 // addi x2, x1, 5   (x2 = x1 + 5 = 10 + 5 = 15)
-    // 01400193 // addi x3, x0, 20  (x3 = 20)
-    // 00308233 // add x4, x1, x3   (x4 = x1 + x3 = 10 + 20 = 30)
-
-    check_register_value("Final x1 value", 5'd1, 32'd10);
-    check_register_value("Final x2 value", 5'd2, 32'd15);
-    check_register_value("Final x3 value", 5'd3, 32'd20);
-    check_register_value("Final x4 value", 5'd4, 32'd30);
+    // Expected values based on the improved program.mem:
+    check_register_value("Setup value x1",            5'd1, 32'd10);
+    check_register_value("Setup value x2",            5'd2, 32'd10);
+    check_register_value("BEQ flushed insn check x3", 5'd3, 32'd55);  // Should retain initial value, proving flush
+    check_register_value("BEQ target x5",             5'd5, 32'd100);
+    check_register_value("JAL link address x6",       5'd6, 32'h20); // jal pc+4 = 0x1C+4
+    check_register_value("JAL flushed insn check x7", 5'd7, 32'd66);  // Should retain initial value, proving flush
+    check_register_value("JAL target x8",             5'd8, 32'd200);
 
     $display("\n=====================================================");
     if (error_count == 0) begin
-      $display("All Forwarding Unit tests passed!");
+      $display("All Branch & Jump tests passed!");
     end else begin
-      $display("Forwarding Unit tests finished with %0d error(s).", error_count);
+      $display("Branch & Jump tests finished with %0d error(s).", error_count);
     end
     $display("=====================================================");
-    repeat(100) @(posedge clk);
     $finish;
   end
 

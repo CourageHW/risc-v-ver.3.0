@@ -30,6 +30,10 @@ module riscv_core (
   
   fw_sel_e forwardA, forwardB;
 
+  logic PCSrc_w;
+  logic flush_pipeline_w;
+  logic [DATA_WIDTH-1:0] branch_target_addr_w;
+
 
   // ===================================
   //              Module
@@ -49,13 +53,16 @@ module riscv_core (
   IF_stage IF_inst (
     .clk(clk),
     .rst_n(rst_n),
-    .pc_we(1'b1), // 임시
+    .pc_we(~flush_pipeline_w),
+    .PCSrc_i(PCSrc_w),
+    .branch_target_addr_i(branch_target_addr_w),
     .bus_out(if_stage_out_bus.MASTER)
   );
 
   IF_to_ID_Reg IF2ID_inst (
     .clk(clk),
     .rst_n(rst_n),
+    .flush_i(flush_pipeline_w),
     .bus_in(if_stage_out_bus.SLAVE),
     .bus_out(id_stage_in_bus.MASTER)
   );
@@ -72,6 +79,7 @@ module riscv_core (
   ID_to_EX_Reg ID2EX_inst (
     .clk(clk),
     .rst_n(rst_n),
+    .flush_i(flush_pipeline_w),
     .bus_in(id_stage_out_bus.SLAVE),
     .bus_out(ex_stage_in_bus.MASTER)
   );
@@ -82,6 +90,10 @@ module riscv_core (
     .alu_result_MEM_i(mem_stage_in_bus.data.alu_result),
     .wb_data_WB_i(WB_wr_data_w),
     .bus_in(ex_stage_in_bus.SLAVE),
+
+    .PCSrc_o(PCSrc_w),
+    .flush_pipeline_o(flush_pipeline_w),
+    .branch_target_addr_o(branch_target_addr_w),
     .bus_out(ex_stage_out_bus.MASTER)
   );
 

@@ -36,6 +36,8 @@ add_files -fileset sim_1 [list \
   ./rtl/2.ID_Stage/immediate_generator.sv \
   ./rtl/2.ID_Stage/ID_stage.sv \
   ./rtl/3.EX_Stage/alu.sv \
+  ./rtl/3.EX_Stage/branch_comparator.sv \
+  ./rtl/3.EX_Stage/branch_determination.sv \
   ./rtl/3.EX_Stage/EX_stage.sv \
   ./rtl/4.MEM_Stage/data_memory.sv \
   ./rtl/4.MEM_Stage/MEM_stage.sv \

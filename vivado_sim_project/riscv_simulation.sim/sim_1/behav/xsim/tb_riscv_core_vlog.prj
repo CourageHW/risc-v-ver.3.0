@@ -16,6 +16,8 @@ sv xil_defaultlib  \
 "../../../../../rtl/5.WB_Stage/WB_stage.sv" \
 "../../../../../rtl/3.EX_Stage/alu.sv" \
 "../../../../../rtl/6.Control_Unit/alu_control_unit.sv" \
+"../../../../../rtl/3.EX_Stage/branch_comparator.sv" \
+"../../../../../rtl/3.EX_Stage/branch_determination.sv" \
 "../../../../../rtl/4.MEM_Stage/data_memory.sv" \
 "../../../../../rtl/7.Hazard_Unit/forwarding_unit.sv" \
 "../../../../../rtl/2.ID_Stage/immediate_generator.sv" \
