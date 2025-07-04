@@ -47,6 +47,7 @@ module riscv_core (
     .rd_addr_WB_i(wb_stage_in_bus.data.rd_addr),
     .rs1_addr_EX_i(ex_stage_in_bus.data.instruction[19:15]),
     .rs2_addr_EX_i(ex_stage_in_bus.data.instruction[24:20]),
+    .WBSel_MEM_i(mem_stage_in_bus.data.WBSel),
     .forwardA(forwardA),
     .forwardB(forwardB)
   );
@@ -55,7 +56,7 @@ module riscv_core (
     .rs1_addr_ID_i(id_stage_in_bus.data.instruction[19:15]),
     .rs2_addr_ID_i(id_stage_in_bus.data.instruction[24:20]),
     .rd_addr_EX_i(ex_stage_in_bus.data.rd_addr),
-    .MemRead_EX_i(ex_stage_in_bus.data.MemRead),
+    .WBSel_EX_i(ex_stage_in_bus.data.WBSel),
     .stall_o(stall_w)
   );
 
@@ -100,6 +101,7 @@ module riscv_core (
     .forwardB(forwardB),
     .alu_result_MEM_i(mem_stage_in_bus.data.alu_result),
     .wb_data_WB_i(WB_wr_data_w),
+    .mem_data_MEM_i(mem_stage_out_bus.data.rd_data),
     .bus_in(ex_stage_in_bus.SLAVE),
 
     .PCSrc_o(PCSrc_w),

@@ -7,6 +7,7 @@ module EX_stage (
   input fw_sel_e forwardB,
   input logic [DATA_WIDTH-1:0] alu_result_MEM_i,
   input logic [DATA_WIDTH-1:0] wb_data_WB_i,
+  input logic [DATA_WIDTH-1:0] mem_data_MEM_i,
   ID2EX_if.SLAVE bus_in,
 
   output logic PCSrc_o,
@@ -66,6 +67,7 @@ always_comb begin
     FW_NONE    : rd_data1_w = bus_in.data.rd_data1;
     FW_MEM_ALU : rd_data1_w = alu_result_MEM_i;
     FW_WB_DATA : rd_data1_w = wb_data_WB_i;
+    FW_MEM_DATA: rd_data1_w = mem_data_MEM_i;
     default    : rd_data1_w = bus_in.data.rd_data1;
   endcase
 end
@@ -75,6 +77,7 @@ always_comb begin
     FW_NONE    : rd_data2_w = bus_in.data.rd_data2;
     FW_MEM_ALU : rd_data2_w = alu_result_MEM_i;
     FW_WB_DATA : rd_data2_w = wb_data_WB_i;
+    FW_MEM_DATA: rd_data2_w = mem_data_MEM_i;
     default    : rd_data2_w = bus_in.data.rd_data2;
   endcase
 end
@@ -89,7 +92,7 @@ assign branch_target_addr_o      = bus_in.data.pc + bus_in.data.immediate;
 assign ex_mem_data_w.instruction = bus_in.data.instruction;
 assign ex_mem_data_w.pc_plus4    = bus_in.data.pc_plus4;
 assign ex_mem_data_w.rd_addr     = bus_in.data.rd_addr;
-assign ex_mem_data_w.rd_data2    = bus_in.data.rd_data2;
+assign ex_mem_data_w.rd_data2    = rd_data2_w;
 
 assign ex_mem_data_w.RegWrite    = bus_in.data.RegWrite;
 assign ex_mem_data_w.MemWrite    = bus_in.data.MemWrite;

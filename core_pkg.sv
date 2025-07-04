@@ -148,6 +148,7 @@ package core_pkg;
   typedef enum logic [1:0] {
     FW_NONE,
     FW_MEM_ALU,
+    FW_MEM_DATA,
     FW_WB_DATA
   } fw_sel_e;
 
