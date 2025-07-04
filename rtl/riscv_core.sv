@@ -5,11 +5,7 @@ import core_pkg::*;
 module riscv_core (
   input logic clk,
   input logic rst_n,
-  input WB_RegWrite_w,
-  input [REG_ADDR_WIDTH-1:0] WB_wr_addr_w,
-  input [DATA_WIDTH-1:0] WB_wr_data_w,
-  input [DATA_WIDTH-1:0] pc_i,
-  input pc_we
+  input logic pc_we
 );
 
   // ===================================
@@ -26,6 +22,15 @@ module riscv_core (
 
 
 
+  // ===================================
+  //             Interface
+  // ===================================
+  logic [DATA_WIDTH-1:0] WB_wr_data_w;
+  logic [REG_ADDR_WIDTH-1:0] WB_wr_addr_w;
+  logic WB_RegWrite_w;
+  
+
+
 
   // ===================================
   //              Module
@@ -34,7 +39,6 @@ module riscv_core (
     .clk(clk),
     .rst_n(rst_n),
     .pc_we(pc_we), // 임시
-    .pc_i(pc_i),  // 임시
     .bus_out(if_stage_out_bus.MASTER)
   );
 
@@ -86,4 +90,11 @@ module riscv_core (
     .bus_out(wb_stage_in_bus.MASTER)
   );
 
+  WB_stage WB_inst (
+    .bus_in(wb_stage_in_bus.SLAVE),
+    .wb_data_o(WB_wr_data_w),
+    .instruction_o(),
+    .rd_addr_o(WB_wr_addr_w),
+    .RegWrite_o(WB_RegWrite_w)
+  );
 endmodule

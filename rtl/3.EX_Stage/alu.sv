@@ -10,9 +10,6 @@ module alu (
 );
 
   always_comb begin
-    // Default assignment to avoid latches, though the default case handles this.
-    alu_result_o = '0;
-
     unique case (ALUSel_i)
       ALU_ADD    : alu_result_o = operand1_i + operand2_i;
       ALU_SUB    : alu_result_o = operand1_i - operand2_i;

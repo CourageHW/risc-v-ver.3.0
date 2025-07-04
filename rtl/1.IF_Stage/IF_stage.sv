@@ -6,7 +6,6 @@ module IF_stage (
   input logic clk,
   input logic rst_n,
   input logic pc_we,
-  input logic [DATA_WIDTH-1:0] pc_i,
   IF2ID_if.MASTER bus_out
 );
   
@@ -18,7 +17,7 @@ module IF_stage (
     .clk(clk),
     .rst_n(rst_n),
     .pc_we(pc_we),
-    .pc_i(pc_i),
+    .pc_i(if_id_data_w.pc + 32'd4), // pc_i에 직접 다음 PC 값 연결
     .pc_o(if_id_data_w.pc)
   );
 
@@ -30,6 +29,6 @@ module IF_stage (
 
   assign addr_w                = if_id_data_w.pc[INST_MEM_ADDR_WIDTH+1:2];
   assign if_id_data_w.pc_plus4 = if_id_data_w.pc + 32'd4;
-
+  
   assign bus_out.data          = if_id_data_w;
 endmodule

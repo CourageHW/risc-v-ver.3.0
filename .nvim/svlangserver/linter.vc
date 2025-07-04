@@ -6,11 +6,13 @@
 +incdir+/home/yonggi/Project_verilog/risc-v-ver.3/rtl/2.ID_Stage
 +incdir+/home/yonggi/Project_verilog/risc-v-ver.3/rtl/3.EX_Stage
 +incdir+/home/yonggi/Project_verilog/risc-v-ver.3/rtl/4.MEM_Stage
++incdir+/home/yonggi/Project_verilog/risc-v-ver.3/rtl/5.WB_Stage
 +incdir+/home/yonggi/Project_verilog/risc-v-ver.3/rtl/6.Control_Unit
 +incdir+/home/yonggi/Project_verilog/risc-v-ver.3/rtl
 +incdir+/home/yonggi/Project_verilog/risc-v-ver.3/tb/1.IF_Stage
 +incdir+/home/yonggi/Project_verilog/risc-v-ver.3/tb/2.ID_Stage
 +incdir+/home/yonggi/Project_verilog/risc-v-ver.3/tb/3.EX_stage
++incdir+/home/yonggi/Project_verilog/risc-v-ver.3/tb/4.MEM_stage
 +incdir+/home/yonggi/Project_verilog/risc-v-ver.3/tb
 +incdir+/home/yonggi/Project_verilog/risc-v-ver.3/vivado_sim_project/riscv_simulation.sim/sim_1/behav/xsim
 +incdir+/home/yonggi/Project_verilog/risc-v-ver.3
@@ -20,10 +22,12 @@
 +incdir+/home/yonggi/Project_verilog/risc-v-ver.3/rtl/2.ID_Stage
 +incdir+/home/yonggi/Project_verilog/risc-v-ver.3/rtl/3.EX_Stage
 +incdir+/home/yonggi/Project_verilog/risc-v-ver.3/rtl/4.MEM_Stage
++incdir+/home/yonggi/Project_verilog/risc-v-ver.3/rtl/5.WB_Stage
 +incdir+/home/yonggi/Project_verilog/risc-v-ver.3/rtl/6.Control_Unit
 +incdir+/home/yonggi/Project_verilog/risc-v-ver.3/rtl
 +incdir+/home/yonggi/Project_verilog/risc-v-ver.3/tb/1.IF_Stage
 +incdir+/home/yonggi/Project_verilog/risc-v-ver.3/tb/2.ID_Stage
 +incdir+/home/yonggi/Project_verilog/risc-v-ver.3/tb/3.EX_stage
++incdir+/home/yonggi/Project_verilog/risc-v-ver.3/tb/4.MEM_stage
 +incdir+/home/yonggi/Project_verilog/risc-v-ver.3/tb
 +incdir+/home/yonggi/Project_verilog/risc-v-ver.3/vivado_sim_project/riscv_simulation.sim/sim_1/behav/xsim

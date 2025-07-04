@@ -39,6 +39,7 @@ add_files -fileset sim_1 [list \
   ./rtl/3.EX_Stage/EX_stage.sv \
   ./rtl/4.MEM_Stage/data_memory.sv \
   ./rtl/4.MEM_Stage/MEM_stage.sv \
+  ./rtl/5.WB_Stage/WB_stage.sv \
   ./rtl/6.Control_Unit/main_control_unit.sv \
   ./rtl/6.Control_Unit/alu_control_unit.sv \
   ./rtl/riscv_core.sv \
@@ -49,7 +50,8 @@ add_files -fileset sim_1 [list \
   ./tb/tb_riscv_core.sv \
 ]
 
-#add_files -fileset sim_1 -norecurse [list \
+add_files -fileset sim_1 -norecurse [list \
+  ./mem/program.mem \
 ]
 
 # --- 3. Set Compile Order ---

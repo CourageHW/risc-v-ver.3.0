@@ -13,6 +13,7 @@ sv xil_defaultlib  \
 "../../../../../interface/MEM2WB_if.sv" \
 "../../../../../rtl/4.MEM_Stage/MEM_stage.sv" \
 "../../../../../rtl/0.Pipeline/MEM_to_WB_Reg.sv" \
+"../../../../../rtl/5.WB_Stage/WB_stage.sv" \
 "../../../../../rtl/3.EX_Stage/alu.sv" \
 "../../../../../rtl/6.Control_Unit/alu_control_unit.sv" \
 "../../../../../rtl/4.MEM_Stage/data_memory.sv" \
