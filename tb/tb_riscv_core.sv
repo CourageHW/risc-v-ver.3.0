@@ -40,39 +40,42 @@ module tb_riscv_core;
   initial begin
     error_count = 0;
     $display("=====================================================");
-    $display("RISC-V Core Improved Testbench (Flush Verification) Starting...");
+    $display("RISC-V Core Load-Use Hazard Test Starting...");
     $display("=====================================================");
 
     // 1. Reset sequence
     rst_n = 0;
-    #(CLK_PERIOD * 2);
+    #(CLK_PERIOD * 2); // Apply reset for 2 clock cycles
     rst_n = 1;
     $display("Reset released.");
 
     // Run enough cycles for all instructions to execute and write back
-    // The program itself now initializes the registers.
     $display("[RUN] Executing instructions from program.mem...");
-    repeat (30) @(posedge clk); // Give enough cycles to reach the infinite loop
+    repeat (20) @(posedge clk); // Give enough cycles to reach the infinite loop
 
     // Check final register values
     $display("\n=====================================================");
     $display("Verifying Register File...");
     $display("=====================================================");
 
-    // Expected values based on the improved program.mem:
-    check_register_value("Setup value x1",            5'd1, 32'd10);
-    check_register_value("Setup value x2",            5'd2, 32'd10);
-    check_register_value("BEQ flushed insn check x3", 5'd3, 32'd55);  // Should retain initial value, proving flush
-    check_register_value("BEQ target x5",             5'd5, 32'd100);
-    check_register_value("JAL link address x6",       5'd6, 32'h20); // jal pc+4 = 0x1C+4
-    check_register_value("JAL flushed insn check x7", 5'd7, 32'd66);  // Should retain initial value, proving flush
-    check_register_value("JAL target x8",             5'd8, 32'd200);
+    // Expected values based on the program.mem:
+    // x10 = 0x1000 (base address)
+    // x11 = 50 (value to store)
+    // x1 = 50 (loaded from memory)
+    // x2 = 51 (x1 + 1, after stall)
+    // x3 = 100 (filler)
+
+    check_register_value("Base address x10", 5'd10, 32'h1000);
+    check_register_value("Stored value x11", 5'd11, 32'd50);
+    check_register_value("Loaded value x1",  5'd1,  32'd50);
+    check_register_value("Result x2 (x1 + 1)", 5'd2,  32'd51);
+    check_register_value("Filler x3",        5'd3,  32'd100);
 
     $display("\n=====================================================");
     if (error_count == 0) begin
-      $display("All Branch & Jump tests passed!");
+      $display("All Load-Use Hazard tests passed!");
     end else begin
-      $display("Branch & Jump tests finished with %0d error(s).", error_count);
+      $display("Load-Use Hazard tests finished with %0d error(s).", error_count);
     end
     $display("=====================================================");
     $finish;

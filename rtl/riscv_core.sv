@@ -32,6 +32,7 @@ module riscv_core (
 
   logic PCSrc_w;
   logic flush_pipeline_w;
+  logic stall_w;
   logic [DATA_WIDTH-1:0] branch_target_addr_w;
 
 
@@ -50,10 +51,18 @@ module riscv_core (
     .forwardB(forwardB)
   );
 
+  hazard_detection_unit hazard_detect_inst (
+    .rs1_addr_ID_i(id_stage_in_bus.data.instruction[19:15]),
+    .rs2_addr_ID_i(id_stage_in_bus.data.instruction[24:20]),
+    .rd_addr_EX_i(ex_stage_in_bus.data.rd_addr),
+    .MemRead_EX_i(ex_stage_in_bus.data.MemRead),
+    .stall_o(stall_w)
+  );
+
   IF_stage IF_inst (
     .clk(clk),
     .rst_n(rst_n),
-    .pc_we(~flush_pipeline_w),
+    .pc_we(~flush_pipeline_w && ~stall_w),
     .PCSrc_i(PCSrc_w),
     .branch_target_addr_i(branch_target_addr_w),
     .bus_out(if_stage_out_bus.MASTER)
@@ -63,6 +72,7 @@ module riscv_core (
     .clk(clk),
     .rst_n(rst_n),
     .flush_i(flush_pipeline_w),
+    .stall_i(stall_w),
     .bus_in(if_stage_out_bus.SLAVE),
     .bus_out(id_stage_in_bus.MASTER)
   );
@@ -80,6 +90,7 @@ module riscv_core (
     .clk(clk),
     .rst_n(rst_n),
     .flush_i(flush_pipeline_w),
+    .stall_i(stall_w),
     .bus_in(id_stage_out_bus.SLAVE),
     .bus_out(ex_stage_in_bus.MASTER)
   );

@@ -13,7 +13,7 @@ module data_memory (
   
   logic [DATA_WIDTH-1:0] data_memory [0:DATA_MEM_DEPTH-1];
 
-  assign rd_data_o = (MemRead_i) ? data_memory[mem_addr_i[DATA_MEM_ADDR_WIDTH+1:2]] : 32'b0;
+  assign rd_data_o = data_memory[mem_addr_i[DATA_MEM_ADDR_WIDTH+1:2]];
 
   always_ff @(posedge clk) begin
     if (MemWrite_i) begin

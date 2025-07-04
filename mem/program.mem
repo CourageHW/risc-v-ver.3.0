@@ -1,19 +1,16 @@
-// Improved Branch & Jump Test
-// Verifies that instructions in branch/jump delay slots are flushed.
+// Load-Use Hazard Test
+// 0x00: lui x10, 1            // x10 = 0x1000 (Base address for memory access)
+// 0x04: addi x11, x0, 50      // Value to store in memory
+// 0x08: sw x11, 0(x10)        // Store 50 at address 0x1000
+// 0x0C: lw x1, 0(x10)         // Load 50 from address 0x1000 into x1
+// 0x10: addi x2, x1, 1        // Load-Use Hazard: x2 = x1 + 1 (should be 50 + 1 = 51)
+// 0x14: addi x3, x0, 100      // Filler instruction
+// 0x18: jal x0, 0             // Infinite loop to halt simulation
 
-// 1. Initialize registers x3 and x7 to known values.
-// 2. BEQ is taken, which should flush the following instruction (addi x3, ...).
-// 3. JAL is taken, which should flush the following instruction (addi x7, ...).
-// 4. Halt simulation with an infinite loop.
-
-03700193 // 0x00: addi x3, x0, 55      // Initialize x3 to 55
-04200393 // 0x04: addi x7, x0, 66      // Initialize x7 to 66
-00A00093 // 0x08: addi x1, x0, 10
-00A00113 // 0x0C: addi x2, x0, 10
-00208663 // 0x10: beq x1, x2, +8 (jumps to 0x18)
-06300193 // 0x14: addi x3, x0, 99      // *** SHOULD BE FLUSHED ***
-06400293 // 0x18: addi x5, x0, 100     // Branch target
-0080036F // 0x1C: jal x6, +8 (jumps to 0x24)
-06300393 // 0x20: addi x7, x0, 99      // *** SHOULD BE FLUSHED ***
-0C800413 // 0x24: addi x8, x0, 200     // Jump target
-0000006F // 0x28: jal x0, 0 (infinite loop)
+00001537 // 0x00: lui x10, 1
+03200593 // 0x04: addi x11, x0, 50
+00b52023 // 0x08: sw x11, 0(x10)
+00052083 // 0x0C: lw x1, 0(x10)
+00108113 // 0x10: addi x2, x1, 1
+06400193 // 0x14: addi x3, x0, 100
+0000006F // 0x18: jal x0, 0
