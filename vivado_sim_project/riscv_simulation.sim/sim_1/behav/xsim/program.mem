@@ -1,16 +1,54 @@
-// Load-Use Hazard Test
-// 0x00: lui x10, 1            // x10 = 0x1000 (Base address for memory access)
-// 0x04: addi x11, x0, 50      // Value to store in memory
-// 0x08: sw x11, 0(x10)        // Store 50 at address 0x1000
-// 0x0C: lw x1, 0(x10)         // Load 50 from address 0x1000 into x1
-// 0x10: addi x2, x1, 1        // Load-Use Hazard: x2 = x1 + 1 (should be 50 + 1 = 51)
-// 0x14: addi x3, x0, 100      // Filler instruction
-// 0x18: jal x0, 0             // Infinite loop to halt simulation
-
-00001537 // 0x00: lui x10, 1
-03200593 // 0x04: addi x11, x0, 50
-00b52023 // 0x08: sw x11, 0(x10)
-00052083 // 0x0C: lw x1, 0(x10)
-00108113 // 0x10: addi x2, x1, 1
-06400193 // 0x14: addi x3, x0, 100
-0000006F // 0x18: jal x0, 0
+// Comprehensive Test 2: Logical, Shift, Branching, Jumps (Corrected)
+//
+// Address | Machine Code | Assembly
+//----------------------------------------------------------------
+// Setup & Logical Ops
+// 0x00:   100002b7       // lui  x5, 0x10000       ; x5 = 0x10000000
+// 0x04:   12328293       // addi x5, x5, 291        ; x5 = 0x10000123
+// 0x08:   fff2f313       // andi x6, x5, 4095       ; x6 = 0x123
+// 0x0c:   f0036393       // ori  x7, x6, 0xF00      ; x7 = 0x123 | 0xF00 = 0xF23
+//
+// Shift & Compare Setup
+// 0x10:   00439493       // slli x9, x7, 4          ; x9 = 0xF230
+// 0x14:   0044d513       // srli x10, x9, 4         ; x10 = 0xF23
+// 0x18:   fff00593       // addi x11, x0, -1        ; x11 = -1
+//
+// Branching Tests
+// 0x1c:   00a39863       // bne  x7, x10, L1_FAIL   ; Should NOT be taken (x7==x10). Target: 0x2c
+// 0x20:   00100693       // addi x13, x0, 1         ; Should EXECUTE. x13 = 1.
+// 0x24:   00b3c663       // blt  x11, x7, L2_SUCCESS; Should be TAKEN (x11 < x7). Target: 0x30
+// 0x28:   3e700713       // addi x14, x0, 999       ; Should be FLUSHED.
+//
+// Unreachable Code
+// 0x2c: L1_FAIL:
+//         00100f13       // addi x30, x0, 1         ; Should NOT be executed.
+//
+// Jump Register Test
+// 0x30: L2_SUCCESS:
+//         00100793       // addi x15, x0, 1         ; Should EXECUTE. x15 = 1.
+// 0x34:   00000a17       // auipc x20, 0            ; x20 = PC = 0x34
+// 0x38:   010a0a13       // addi x20, x20, 16       ; x20 = 0x34 + 16 = 0x44 (HALT address)
+// 0x3c:   000a0867       // jalr x16, x20, 0        ; Jumps to 0x44. x16 = PC+4 = 0x40.
+// 0x40:   30900893       // addi x17, x0, 777       ; Should be FLUSHED.
+//
+// Halt
+// 0x44: HALT:
+//         0000006f       // jal x0, 0               ; Infinite loop.
+100002b7
+12328293
+fff2f313
+f0036393
+00439493
+0044d513
+fff00593
+00a39863
+00100693
+00b3c663
+3e700713
+00100f13
+00100793
+00000a17
+010a0a13
+000a0867
+30900893
+0000006f

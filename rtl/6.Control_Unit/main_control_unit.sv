@@ -4,6 +4,7 @@ import core_pkg::*;
 
 module main_control_unit (
   input logic [6:0] opcode_i,
+  input logic [2:0] funct3_i,
 
   // Immediate Generator
   output imm_sel_e ImmSel_o,
@@ -48,8 +49,28 @@ module main_control_unit (
       end
 
       OPCODE_I: begin
-        ImmSel_o   = IMM_ITYPE;
-        ALUOp_o    = ALUOP_FUNCT3; // funct3
+        unique case(funct3_i)
+          FUNCT3_I_ADDI: begin
+            ImmSel_o = IMM_ITYPE;
+            ALUOp_o  = ALUOP_FUNCT3;
+          end
+          FUNCT3_I_SLTI, FUNCT3_I_SLTIU: begin
+            ImmSel_o = IMM_ITYPE;
+            ALUOp_o  = ALUOP_FUNCT3;
+          end
+          FUNCT3_I_XORI, FUNCT3_I_ORI, FUNCT3_I_ANDI: begin
+            ImmSel_o = IMM_LOGICAL;
+            ALUOp_o  = ALUOP_FUNCT3;
+          end
+          FUNCT3_I_SLLI, FUNCT3_R_SHIFT_R: begin // SLLI, SRLI, SRAI
+            ImmSel_o = IMM_ITYPE;
+            ALUOp_o  = ALUOP_FUNCT7; // Needs funct7 to distinguish SRLI/SRAI
+          end
+          default: begin
+            ImmSel_o = IMM_ITYPE;
+            ALUOp_o  = ALUOP_FUNCT3;
+          end
+        endcase
         WBSel_o    = WB_ALU;
         ALUSrcB_o  = 1'b1;
         RegWrite_o = 1'b1;

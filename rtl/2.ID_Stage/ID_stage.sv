@@ -24,6 +24,7 @@ module ID_stage (
 
   main_control_unit main_ctrl_inst (
     .opcode_i(bus_in.data.instruction[6:0]),
+    .funct3_i(bus_in.data.instruction[14:12]),
     .ImmSel_o(ImmSel_w),
     .ALUSrcA_o(ALUSrcA_w),
     .ALUSrcB_o(ALUSrcB_w),

@@ -14,6 +14,7 @@ module MEM_stage (
     .clk(clk),
     .mem_addr_i(bus_in.data.alu_result),
     .wr_data_i(bus_in.data.rd_data2),
+    .funct3_i(bus_in.data.instruction[14:12]),
     .MemWrite_i(bus_in.data.MemWrite),
     .MemRead_i(bus_in.data.MemRead),
     .rd_data_o(mem_wb_data_w.rd_data)

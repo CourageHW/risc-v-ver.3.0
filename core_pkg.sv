@@ -69,12 +69,12 @@ package core_pkg;
   localparam logic [2:0] FUNCT3_STORE_WORD  = 3'h2; // Store Word
 
   // Branch
-  localparam logic [2:0] FUNCT3_BRANCH_EQ   = 3'h0; // Branch ==
-  localparam logic [2:0] FUNCT3_BRANCH_NE   = 3'h1; // Branch !=
-  localparam logic [2:0] FUNCT3_BRANCH_LT   = 3'h4; // Branch <
-  localparam logic [2:0] FUNCT3_BRANCH_GE   = 3'h5; // Branch >=
-  localparam logic [2:0] FUNCT3_BRANCH_LTU  = 3'h6; // Branch < (Unsigned)
-  localparam logic [2:0] FUNCT3_BRANCH_GEU  = 3'h7; // Branch >= (Unsigned)
+  localparam logic [2:0] FUNCT3_BRANCH_EQ   = 3'b000; // Branch ==
+  localparam logic [2:0] FUNCT3_BRANCH_NE   = 3'b001; // Branch !=
+  localparam logic [2:0] FUNCT3_BRANCH_LT   = 3'b100; // Branch <
+  localparam logic [2:0] FUNCT3_BRANCH_GE   = 3'b101; // Branch >=
+  localparam logic [2:0] FUNCT3_BRANCH_LTU  = 3'b110; // Branch < (Unsigned)
+  localparam logic [2:0] FUNCT3_BRANCH_GEU  = 3'b111; // Branch >= (Unsigned)
 
   // Jump
   localparam logic [2:0] FUNCT3_JALR        = 3'h0; // Jump and Link Reg
@@ -106,13 +106,14 @@ package core_pkg;
   localparam logic [6:0] FUNCT7_INVALID = 7'h11;
 
   typedef enum logic [2:0] {
-    IMM_ITYPE, // Loads & Immediate Arithmetic
-    IMM_STYPE, // Stores
-    IMM_BTYPE, // Conditional Branch
-    IMM_UTYPE, // Upper Immediate
-    IMM_JTYPE, // Unconditional Jump
-    IMM_RTYPE  // NONE
-  } imm_sel_e;
+  IMM_RTYPE,
+  IMM_ITYPE,
+  IMM_STYPE,
+  IMM_BTYPE,
+  IMM_UTYPE,
+  IMM_JTYPE,
+  IMM_LOGICAL
+} imm_sel_e;
 
   typedef enum logic [2:0] {
     ALUOP_ADD,

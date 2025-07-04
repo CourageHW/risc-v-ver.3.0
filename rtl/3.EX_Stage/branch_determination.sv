@@ -22,7 +22,7 @@ module branch_determination (
       FUNCT3_BRANCH_GE : BrSel_w = ~BrLT_i;
       FUNCT3_BRANCH_LTU: BrSel_w = BrLTU_i;
       FUNCT3_BRANCH_GEU: BrSel_w = ~BrLTU_i;
-      default : BrSel_w = 0;
+      default : BrSel_w = 1'b0;
     endcase
   end
 
