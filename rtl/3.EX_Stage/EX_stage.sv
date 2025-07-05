@@ -47,7 +47,7 @@ branch_determination branch_det_inst (
 );
 
 alu_control_unit alu_ctrl_inst (
-  .ALUOp_i(bus_in.data.ALUOp),
+  .opcode_i(bus_in.data.instruction[6:0]),
   .funct3_i(bus_in.data.instruction[14:12]),
   .funct7_i(bus_in.data.instruction[30]),
   .ALUSel_o(ALUSel_w)
@@ -87,7 +87,7 @@ assign operand2_w = (bus_in.data.ALUSrcB) ? bus_in.data.immediate : rd_data2_w;
 
 assign PCSrc_o                   = (BranchTaken_w | bus_in.data.Jump);
 assign flush_pipeline_o          = (BranchTaken_w | bus_in.data.Jump);
-assign branch_target_addr_o      = bus_in.data.pc + bus_in.data.immediate;
+assign branch_target_addr_o      = (bus_in.data.pc + bus_in.data.immediate);
 
 assign ex_mem_data_w.instruction = bus_in.data.instruction;
 assign ex_mem_data_w.pc_plus4    = bus_in.data.pc_plus4;

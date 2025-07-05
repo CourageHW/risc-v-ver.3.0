@@ -14,9 +14,9 @@
 // 0x18:   fff00593       // addi x11, x0, -1        ; x11 = -1
 //
 // Branching Tests
-// 0x1c:   00a39863       // bne  x7, x10, L1_FAIL   ; Should NOT be taken (x7==x10). Target: 0x2c
+// 0x1c:   00a39563       // bne  x7, x10, 10 : L1_FAIL   ; Should NOT be taken (x7==x10). Target: 0x2c
 // 0x20:   00100693       // addi x13, x0, 1         ; Should EXECUTE. x13 = 1.
-// 0x24:   00b3c663       // blt  x11, x7, L2_SUCCESS; Should be TAKEN (x11 < x7). Target: 0x30
+// 0x24:   0075c663       // blt  x11, x7, 12 : L2_SUCCESS; Should be TAKEN (x11 < x7). Target: 0x30
 // 0x28:   3e700713       // addi x14, x0, 999       ; Should be FLUSHED.
 //
 // Unreachable Code
@@ -41,9 +41,9 @@ f0036393
 00439493
 0044d513
 fff00593
-00a39863
+00a39563
 00100693
-00b3c663
+0075c663
 3e700713
 00100f13
 00100793

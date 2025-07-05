@@ -63,7 +63,7 @@ module riscv_core (
   IF_stage IF_inst (
     .clk(clk),
     .rst_n(rst_n),
-    .pc_we(~stall_w),
+    .pc_we(~stall_w | PCSrc_w),
     .PCSrc_i(PCSrc_w),
     .branch_target_addr_i(branch_target_addr_w),
     .bus_out(if_stage_out_bus.MASTER)

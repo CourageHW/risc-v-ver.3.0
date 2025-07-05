@@ -13,9 +13,6 @@ module main_control_unit (
   output logic ALUSrcA_o,
   output logic ALUSrcB_o,
 
-  // ALU Control Unit
-  output alu_op_e ALUOp_o,
-
   output logic Branch_o,
   output logic Jump_o,
 
@@ -30,8 +27,8 @@ module main_control_unit (
 
 
   always_comb begin
-    ImmSel_o   = IMM_RTYPE; // NONE
-    ALUOp_o    = ALUOP_NONE;
+    // Default values
+    ImmSel_o   = IMM_RTYPE;
     WBSel_o    = WB_NONE;
     ALUSrcA_o  = 1'b0;
     ALUSrcB_o  = 1'b0;
@@ -43,42 +40,28 @@ module main_control_unit (
 
     unique case (opcode_i)
       OPCODE_R: begin
-        ALUOp_o    = ALUOP_FUNCT7; // funct3 + funct7
         WBSel_o    = WB_ALU;
         RegWrite_o = 1'b1;
       end
 
       OPCODE_I: begin
-        unique case(funct3_i)
-          FUNCT3_I_ADDI: begin
-            ImmSel_o = IMM_ITYPE;
-            ALUOp_o  = ALUOP_FUNCT3;
-          end
-          FUNCT3_I_SLTI, FUNCT3_I_SLTIU: begin
-            ImmSel_o = IMM_ITYPE;
-            ALUOp_o  = ALUOP_FUNCT3;
-          end
-          FUNCT3_I_XORI, FUNCT3_I_ORI, FUNCT3_I_ANDI: begin
-            ImmSel_o = IMM_LOGICAL;
-            ALUOp_o  = ALUOP_FUNCT3;
-          end
-          FUNCT3_I_SLLI, FUNCT3_R_SHIFT_R: begin // SLLI, SRLI, SRAI
-            ImmSel_o = IMM_ITYPE;
-            ALUOp_o  = ALUOP_FUNCT7; // Needs funct7 to distinguish SRLI/SRAI
-          end
-          default: begin
-            ImmSel_o = IMM_ITYPE;
-            ALUOp_o  = ALUOP_FUNCT3;
-          end
-        endcase
+        // Default for I-type is standard sign-extended immediate
+        ImmSel_o   = IMM_ITYPE;
         WBSel_o    = WB_ALU;
         ALUSrcB_o  = 1'b1;
         RegWrite_o = 1'b1;
+
+        // Special case for logical immediates (zero-extended)
+        unique case (funct3_i)
+          FUNCT3_I_XORI,
+          FUNCT3_I_ORI,
+          FUNCT3_I_ANDI: ImmSel_o = IMM_LOGICAL;
+          default: ImmSel_o = IMM_ITYPE;
+        endcase
       end
 
       OPCODE_LOAD: begin
         ImmSel_o   = IMM_ITYPE;
-        ALUOp_o    = ALUOP_ADD;
         WBSel_o    = WB_MEM;
         ALUSrcB_o  = 1'b1;
         MemRead_o  = 1'b1;
@@ -87,20 +70,17 @@ module main_control_unit (
 
       OPCODE_STORE: begin
         ImmSel_o   = IMM_STYPE;
-        ALUOp_o    = ALUOP_ADD;
         ALUSrcB_o  = 1'b1;
         MemWrite_o = 1'b1;
       end
 
       OPCODE_BRANCH: begin
         ImmSel_o   = IMM_BTYPE;
-        ALUOp_o    = ALUOP_SUB;
         Branch_o   = 1'b1;
       end
 
       OPCODE_JAL: begin
         ImmSel_o   = IMM_JTYPE;
-        ALUOp_o    = ALUOP_ADD;
         WBSel_o    = WB_PC4;
         Jump_o     = 1'b1;
         RegWrite_o = 1'b1;
@@ -108,7 +88,6 @@ module main_control_unit (
 
       OPCODE_JALR: begin
         ImmSel_o   = IMM_ITYPE;
-        ALUOp_o    = ALUOP_ADD;
         WBSel_o    = WB_PC4;
         ALUSrcB_o  = 1'b1;
         Jump_o     = 1'b1;
@@ -117,16 +96,13 @@ module main_control_unit (
 
       OPCODE_LUI: begin
         ImmSel_o   = IMM_UTYPE;
-        ALUOp_o    = ALUOP_PASS_B;
         WBSel_o    = WB_ALU;
-        ALUSrcA_o  = 1'b1;
         ALUSrcB_o  = 1'b1;
         RegWrite_o = 1'b1;
       end
 
       OPCODE_AUIPC: begin
         ImmSel_o   = IMM_UTYPE;
-        ALUOp_o    = ALUOP_ADD;
         WBSel_o    = WB_ALU;
         ALUSrcA_o  = 1'b1;
         ALUSrcB_o  = 1'b1;

@@ -22,24 +22,22 @@ module forwarding_unit (
     forwardA = FW_NONE;
     forwardB = FW_NONE;
 
-    if (RegWrite_MEM_i && rd_addr_MEM_i != '0 && rd_addr_MEM_i == rs1_addr_EX_i) begin
-      if (WBSel_MEM_i == WB_MEM) begin
-        forwardA = FW_MEM_DATA;
-      end else begin
-        forwardA = FW_MEM_ALU;
+    if (RegWrite_WB_i && rd_addr_WB_i != '0) begin
+      if (rd_addr_WB_i == rs1_addr_EX_i) begin
+        forwardA = FW_WB_DATA;
       end
-    end else if (RegWrite_WB_i && rd_addr_WB_i != '0 && rd_addr_WB_i == rs1_addr_EX_i) begin
-      forwardA = FW_WB_DATA;
+      if (rd_addr_WB_i == rs2_addr_EX_i) begin
+        forwardB = FW_WB_DATA;
+      end
     end
 
-    if (RegWrite_MEM_i && rd_addr_MEM_i != '0 && rd_addr_MEM_i == rs2_addr_EX_i) begin
-      if (WBSel_MEM_i == WB_MEM) begin
-        forwardB = FW_MEM_DATA;
-      end else begin
-        forwardB = FW_MEM_ALU;
+    if (RegWrite_MEM_i && rd_addr_MEM_i != '0) begin
+      if (rd_addr_MEM_i == rs1_addr_EX_i) begin
+        forwardA = (WBSel_MEM_i == WB_MEM) ? FW_MEM_DATA : FW_MEM_ALU;
       end
-    end else if (RegWrite_WB_i && rd_addr_WB_i != '0 && rd_addr_WB_i == rs2_addr_EX_i) begin
-      forwardB = FW_WB_DATA;
+      if (rd_addr_MEM_i == rs2_addr_EX_i) begin
+        forwardB = (WBSel_MEM_i == WB_MEM) ? FW_MEM_DATA : FW_MEM_ALU;
+      end
     end
   end
 endmodule

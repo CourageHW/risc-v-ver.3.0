@@ -15,9 +15,7 @@ module IF_to_ID_Reg (
     if (!rst_n) begin
       bus_out.data <= '0;
     end else if (flush_i) begin
-      bus_out.data.instruction <= 32'h00000013; // addi x0, x0, 0
-      bus_out.data.pc <= '0;
-      bus_out.data.pc_plus4 <= '0;
+      bus_out.data <= '0;
     end else if (!stall_i) begin
       bus_out.data <= bus_in.data;
     end

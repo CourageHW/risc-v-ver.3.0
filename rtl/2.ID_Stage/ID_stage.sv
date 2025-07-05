@@ -18,7 +18,6 @@ module ID_stage (
 
   imm_sel_e ImmSel_w;
   logic ALUSrcA_w, ALUSrcB_w, Branch_w, Jump_w, MemWrite_w, MemRead_w, RegWrite_w;
-  alu_op_e ALUOp_w;
   wb_sel_e WBSel_w;
 
 
@@ -28,7 +27,6 @@ module ID_stage (
     .ImmSel_o(ImmSel_w),
     .ALUSrcA_o(ALUSrcA_w),
     .ALUSrcB_o(ALUSrcB_w),
-    .ALUOp_o(ALUOp_w),
     .Branch_o(Branch_w),
     .Jump_o(Jump_w),
     .MemWrite_o(MemWrite_w),
@@ -62,7 +60,6 @@ module ID_stage (
 
   assign id_ex_data_w.ALUSrcA  = ALUSrcA_w;
   assign id_ex_data_w.ALUSrcB  = ALUSrcB_w;
-  assign id_ex_data_w.ALUOp    = ALUOp_w;
   assign id_ex_data_w.Branch   = Branch_w;
   assign id_ex_data_w.Jump     = Jump_w;
   assign id_ex_data_w.MemWrite = MemWrite_w;

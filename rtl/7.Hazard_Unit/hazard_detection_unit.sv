@@ -6,7 +6,7 @@ module hazard_detection_unit (
   input logic [REG_ADDR_WIDTH-1:0] rs1_addr_ID_i,
   input logic [REG_ADDR_WIDTH-1:0] rs2_addr_ID_i,
   input logic [REG_ADDR_WIDTH-1:0] rd_addr_EX_i,
-  input wb_sel_e WBSel_EX_i, // Control signal from EX stage
+  input wb_sel_e WBSel_EX_i,
   output logic stall_o
 );
 
