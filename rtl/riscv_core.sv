@@ -4,7 +4,8 @@ import core_pkg::*;
 
 module riscv_core (
   input logic clk,
-  input logic rst_n
+  input logic rst_n,
+  output logic [INST_MEM_ADDR_WIDTH-1:0] inst_addr_o
 );
 
   // ===================================
@@ -20,7 +21,7 @@ module riscv_core (
   MEM2WB_if wb_stage_in_bus();   // REG -> WB
 
 
-
+  
   // ===================================
   //             Interface
   // ===================================
@@ -35,7 +36,7 @@ module riscv_core (
   logic stall_w;
   logic [DATA_WIDTH-1:0] branch_target_addr_w;
 
-
+  assign inst_addr_o = if_stage_out_bus.data.pc[INST_MEM_ADDR_WIDTH+1:2];
   // ===================================
   //              Module
   // ===================================

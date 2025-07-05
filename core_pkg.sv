@@ -171,7 +171,6 @@ package core_pkg;
 
     logic ALUSrcA;
     logic ALUSrcB;
-    alu_op_e ALUOp;
     logic Branch;
     logic Jump;
     logic MemWrite;

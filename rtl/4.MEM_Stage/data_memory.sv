@@ -12,6 +12,7 @@ module data_memory (
   output logic [DATA_WIDTH-1:0] rd_data_o
 );
   
+  (* ram_style = "block" *)
   logic [DATA_WIDTH-1:0] data_memory [0:DATA_MEM_DEPTH-1];
   logic [DATA_MEM_ADDR_WIDTH-1:0] word_addr_w;
 
@@ -24,9 +25,9 @@ module data_memory (
         FUNCT3_STORE_BYTE: begin
           unique case (mem_addr_i[1:0])
             2'b00: data_memory[word_addr_w][7:0]   <= wr_data_i[7:0];
-            2'b00: data_memory[word_addr_w][15:8]  <= wr_data_i[7:0];
-            2'b00: data_memory[word_addr_w][23:16] <= wr_data_i[7:0];
-            2'b00: data_memory[word_addr_w][31:24] <= wr_data_i[7:0];
+            2'b01: data_memory[word_addr_w][15:8]  <= wr_data_i[7:0];
+            2'b10: data_memory[word_addr_w][23:16] <= wr_data_i[7:0];
+            2'b11: data_memory[word_addr_w][31:24] <= wr_data_i[7:0];
           endcase
         end
 
