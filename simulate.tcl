@@ -52,15 +52,17 @@ add_files -fileset sim_1 [list \
   ./tb/3.EX_stage/tb_EX_stage.sv \
   ./tb/4.MEM_stage/tb_MEM_stage.sv \
   ./tb/tb_riscv_core.sv \
+  ./tb/tb_load_use.sv \
 ]
 
 add_files -fileset sim_1 -norecurse [list \
   ./mem/program.mem \
+  ./mem/load_use.mem \
 ]
 
 # --- 3. Set Compile Order ---
 # Explicitly set the defines package to be compiled first.
-set_property top tb_riscv_core [get_filesets sim_1]
+set_property top tb_load_use [get_filesets sim_1]
 update_compile_order -fileset sim_1
 
 

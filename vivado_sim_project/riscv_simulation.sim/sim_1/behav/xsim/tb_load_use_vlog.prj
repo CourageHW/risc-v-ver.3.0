@@ -27,7 +27,7 @@ sv xil_defaultlib  \
 "../../../../../rtl/1.IF_Stage/program_counter.sv" \
 "../../../../../rtl/2.ID_Stage/register_file.sv" \
 "../../../../../rtl/riscv_core.sv" \
-"../../../../../tb/tb_riscv_core.sv" \
+"../../../../../tb/tb_load_use.sv" \
 
 # compile glbl module
 verilog xil_defaultlib "glbl.v"

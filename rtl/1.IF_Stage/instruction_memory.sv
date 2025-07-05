@@ -10,7 +10,7 @@ module instruction_memory (
   logic [DATA_WIDTH-1:0] instruction_memory [0:INST_MEM_DEPTH-1];
   
   initial begin
-    $readmemh("program.mem", instruction_memory);
+    $readmemh("load_use.mem", instruction_memory);
   end
   
   assign instruction_o = instruction_memory[addr_i];

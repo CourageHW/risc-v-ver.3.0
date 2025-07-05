@@ -16,7 +16,9 @@ module IF_to_ID_Reg (
       bus_out.data <= '0;
     end else if (flush_i) begin
       bus_out.data <= '0;
-    end else if (!stall_i) begin
+    end else if (stall_i) begin
+      bus_out.data <= bus_out.data;
+    end else begin
       bus_out.data <= bus_in.data;
     end
   end

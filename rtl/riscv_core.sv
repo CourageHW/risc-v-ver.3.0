@@ -53,6 +53,8 @@ module riscv_core (
   );
 
   hazard_detection_unit hazard_detect_inst (
+    .clk(clk),
+    .rst_n(rst_n),
     .rs1_addr_ID_i(id_stage_in_bus.data.instruction[19:15]),
     .rs2_addr_ID_i(id_stage_in_bus.data.instruction[24:20]),
     .rd_addr_EX_i(ex_stage_in_bus.data.rd_addr),
